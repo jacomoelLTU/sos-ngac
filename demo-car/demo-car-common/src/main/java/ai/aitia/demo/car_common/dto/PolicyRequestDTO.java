@@ -1,0 +1,26 @@
+package ai.aitia.demo.car_common.dto;
+
+import java.io.Serializable;
+
+public class PolicyRequestDTO implements Serializable {
+
+	private static final long serialVersionUID = 8483737483858496844L;
+	
+	private String op;
+	private PolicyParamsDTO args;
+	
+	public PolicyRequestDTO(String op, PolicyParamsDTO args) {
+		this.op = op;
+		this.args = args;
+	}
+	
+	
+	public String getOp() {
+		return op;
+	}
+
+	public PolicyParamsDTO getArgs() {
+		return args;
+	}
+
+}

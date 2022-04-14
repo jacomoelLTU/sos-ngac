@@ -90,6 +90,20 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 		getCarServiceRequest.getMetadata().put(CarProviderConstants.REQUEST_PARAM_KEY_BRAND, CarProviderConstants.REQUEST_PARAM_BRAND);
 		getCarServiceRequest.getMetadata().put(CarProviderConstants.REQUEST_PARAM_KEY_COLOR, CarProviderConstants.REQUEST_PARAM_COLOR);
 		arrowheadService.forceRegisterServiceToServiceRegistry(getCarServiceRequest);
+		
+		// Policy server registry
+		final ServiceRegistryRequestDTO paiServiceRequest = createServiceRegistryRequest(
+				CarProviderConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, 
+				CarProviderConstants.ADMIN_INTERFACE_URI, 
+				HttpMethod.POST);		
+		arrowheadService.forceRegisterServiceToServiceRegistry(paiServiceRequest);
+		
+		final ServiceRegistryRequestDTO pqiServiceRequest = createServiceRegistryRequest(
+				CarProviderConstants.QUERY_INTERFACE_SERVICE_DEFINITION, 
+				CarProviderConstants.QUERY_INTERFACE_URI, 
+				HttpMethod.POST);		
+		arrowheadService.forceRegisterServiceToServiceRegistry(pqiServiceRequest);
+		
 	}
 	
 	//-------------------------------------------------------------------------------------------------
