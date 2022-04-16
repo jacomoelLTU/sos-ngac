@@ -10,10 +10,6 @@ import eu.arrowhead.common.CommonConstants;
 @ComponentScan(basePackages = {CommonConstants.BASE_PACKAGE, PolicyServerConstants.BASE_PACKAGE})
 public class PolicyServerMain {
 
-	//=================================================================================================
-	// methods
-
-	//-------------------------------------------------------------------------------------------------
 	public static void main(final String[] args) {
 		SpringApplication.run(PolicyServerMain.class, args);
 	}	

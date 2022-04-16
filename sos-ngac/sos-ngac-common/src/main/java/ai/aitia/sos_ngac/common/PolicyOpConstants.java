@@ -32,12 +32,15 @@ public class PolicyOpConstants {
 	
 	
 	/* ---------------- Query set -------------------*/
+	
+	// Ops
 	public static final String ACCESS_QUERY = "access?";
 	public static final String CONDITIONAL_ACCESS_QUERY = "caccess?";
 	public static final String MULTIPLE_ACCESS_QUERY = "accessm?";
 	public static final String GET_OBJECT_INFO = "getobjectinfo?";
 	public static final String USERS_QUERY = "users?";
 	
+	// Params
 	public static final String PARAM_USER = "user=";
 	public static final String PARAM_ACCESS_RIGHT = "ar=";
 	public static final String PARAM_OBJECT = "object=";

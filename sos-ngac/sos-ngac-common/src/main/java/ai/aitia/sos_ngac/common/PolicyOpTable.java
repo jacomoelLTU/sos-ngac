@@ -5,6 +5,12 @@ import static java.util.Map.entry;
 
 import java.util.HashMap; 
 
+/* 
+ * All implemented API calls of the NGAC policy query- and admin interfaces.
+ * The policy server will validate incoming requests through this table;
+ * hence, a policy request DTO should be sent with a defined operation
+ * constant and its corresponding parameters listed in this table. 
+ * */
 public class PolicyOpTable {
 	
 	public static final Map<String, String[]> table = Map.ofEntries(

@@ -23,9 +23,9 @@ public class PolicyServerController {
 	// -------------------------------------------------------------------------------------------------
 	@PostMapping(value = PolicyServerConstants.ADMIN_INTERFACE_URI)
 	@ResponseBody
-	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) {
-		PolicyResponseDTO respdto = new PolicyResponseDTO("test", "test", "test");
-		return respdto;
+	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) throws Exception {
+		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, PolicyServerConstants.NGAC_SERVER_ADMIN_API);
+		return responseDTO;
 	}
 
 	@PostMapping(value = PolicyServerConstants.QUERY_INTERFACE_URI)

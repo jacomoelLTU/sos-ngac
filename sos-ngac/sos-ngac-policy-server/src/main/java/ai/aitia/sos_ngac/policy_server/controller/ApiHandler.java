@@ -33,9 +33,8 @@ public class ApiHandler {
 	}
 
 	/* 
-	 * Cross-checks request DTO with PolicyOpTable and returns a parameter HashMap on valid query.
-	 * HashMap structure: { PARAMETER-DEFINITION = parameter from request DTO}
-	 * 
+	 * Confirms request DTO with PolicyOpTable and returns a HashMap parameter body on valid query.
+	 * HashMap structure: { PARAMETER-DEFINITION : parameter from request DTO }
 	 */
 	public HashMap<String, String> evalRequest(PolicyRequestDTO dto) throws Exception {
 		String op = dto.getOp();
@@ -63,7 +62,7 @@ public class ApiHandler {
 		return url;
  	}
 	
-	// Sends a request to the ngac server and returns the server response
+	// Sends a request to the NGAC server and returns the server JSON response
 	public JSONObject sendServerRequest(URL serverURL) throws IOException, ParseException {
 		HttpURLConnection conn = (HttpURLConnection)serverURL.openConnection();
 		conn.setRequestMethod("GET");
@@ -86,7 +85,7 @@ public class ApiHandler {
 		 return response;
 	}
 	
-	// Converts the server JSON response to a PolicyResponseDTO
+	// Converts server JSON response to PolicyResponseDTO
 	public PolicyResponseDTO convertToDTO(JSONObject serverResponse) {
 		String respBody = (String) serverResponse.get("respBody");
 		String respMessage = (String) serverResponse.get("respMessage");
