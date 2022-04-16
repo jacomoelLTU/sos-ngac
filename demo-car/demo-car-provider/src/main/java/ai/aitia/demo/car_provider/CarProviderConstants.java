@@ -15,6 +15,9 @@ public class CarProviderConstants {
 	public static final String QUERY_INTERFACE_SERVICE_DEFINITION = "query-interface";
 	public static final String ADMIN_INTERFACE_URI = "/pai";
 	public static final String QUERY_INTERFACE_URI = "/pqi";
+	public static final String NGAC_SERVER_QUERY_API = "/pqapi/";
+	public static final String NGAC_SERVER_ADMIN_API = "/paapi/";
+	public static final String NGAC_SERVER_ADDRESS = "http://127.0.0.1:8001";
 	/* -------------------------------------------------------------------- */
 	
 	public static final String INTERFACE_SECURE = "HTTP-SECURE-JSON";

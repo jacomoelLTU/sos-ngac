@@ -15,7 +15,7 @@ import org.springframework.http.HttpMethod;
 import ai.aitia.arrowhead.application.library.ArrowheadService;
 import ai.aitia.demo.car_common.dto.CarRequestDTO;
 import ai.aitia.demo.car_common.dto.CarResponseDTO;
-import ai.aitia.demo.car_common.dto.PolicyParamsDTO;
+import ai.aitia.demo.car_common.dto.PolicyOpConstants;
 import ai.aitia.demo.car_common.dto.PolicyRequestDTO;
 import ai.aitia.demo.car_common.dto.PolicyResponseDTO;
 import eu.arrowhead.common.CommonConstants;
@@ -58,50 +58,9 @@ public class CarConsumerMain implements ApplicationRunner {
 	public void run(final ApplicationArguments args) throws Exception {
     	createCarServiceOrchestrationAndConsumption();
     	getCarServiceOrchestrationAndConsumption();
-    	paiOrchestrationAndConsumption();
     	pqiOrchestrationAndConsumption();
 	}
     
-    public void paiOrchestrationAndConsumption() {
-    	logger.info("Orchestration request for " + CarConsumerConstants.ADMIN_INTERFACE_SERVICE_DEFINITION + " service:");
-    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(CarConsumerConstants.ADMIN_INTERFACE_SERVICE_DEFINITION)
-    																		.interfaces(getInterface())
-    																		.build();
-    	
-		final Builder orchestrationFormBuilder = arrowheadService.getOrchestrationFormBuilder();
-		final OrchestrationFormRequestDTO orchestrationFormRequest = orchestrationFormBuilder.requestedService(serviceQueryForm)
-																					   .flag(Flag.MATCHMAKING, true)
-																					   .flag(Flag.OVERRIDE_STORE, true)
-																					   .build();
-		
-		printOut(orchestrationFormRequest);		
-		
-		final OrchestrationResponseDTO orchestrationResponse = arrowheadService.proceedOrchestration(orchestrationFormRequest);
-		
-		logger.info("Orchestration response:");
-		printOut(orchestrationResponse);		
-		
-		if (orchestrationResponse == null) {
-			logger.info("No orchestration response received");
-		} else if (orchestrationResponse.getResponse().isEmpty()) {
-			logger.info("No provider found during the orchestration");
-		} else {
-			final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
-			validateOrchestrationResult(orchestrationResult, CarConsumerConstants.ADMIN_INTERFACE_SERVICE_DEFINITION);
-			
-			final PolicyRequestDTO dto = new PolicyRequestDTO("getobject", new PolicyParamsDTO());
-			
-			logger.info("ADMIN INTERFACE REQUEST: ");
-			printOut(dto);
-			final String token = orchestrationResult.getAuthorizationTokens() == null ? null : orchestrationResult.getAuthorizationTokens().get(getInterface());
-			final PolicyResponseDTO carCreated = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(CarConsumerConstants.HTTP_METHOD)),
-					orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(), orchestrationResult.getServiceUri(),
-					getInterface(), token, dto, new String[0]);
-			logger.info("Provider response");
-			printOut(carCreated);
-				
-		}
-    }
     
     public void pqiOrchestrationAndConsumption() {
     	logger.info("Orchestration request for " + CarConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION + " service:");
@@ -130,7 +89,7 @@ public class CarConsumerMain implements ApplicationRunner {
 			final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
 			validateOrchestrationResult(orchestrationResult, CarConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION);
 			
-			final PolicyRequestDTO dto = new PolicyRequestDTO("getobject", new PolicyParamsDTO());
+			final PolicyRequestDTO dto = new PolicyRequestDTO(PolicyOpConstants.ACCESS_QUERY, new String[]{"jesper", "r", "hobbit"});
 			
 			logger.info("QUERY INTERFACE REQUEST: ");
 			printOut(dto);

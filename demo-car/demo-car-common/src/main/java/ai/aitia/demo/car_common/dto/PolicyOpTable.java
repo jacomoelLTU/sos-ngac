@@ -1,30 +1,76 @@
 package ai.aitia.demo.car_common.dto;
 
+import java.util.Map;
+import static java.util.Map.entry;
+
+import java.util.HashMap; 
+
 public class PolicyOpTable {
 	
-	// Admin set
-	public static final String GET_POLICY = "getpol";
-	public static final String SET_POLICY = "setpol";
-	public static final String ADD_ELEMENT = "add";
-	public static final String ADD_MULTIPLE_ELEMENTS = "addm";
-	public static final String DELETE = "delete";
-	public static final String DELETE_MULTIPLE_ELEMENTS = "deletem";
-	public static final String COMBINE_POLICIES = "combinepol";
-	public static final String LOAD_POLICY = "load";
-	public static final String LOAD_POLICY_IMMEDIATE = "loadi";
-	public static final String UNLOAD_POLICY = "unload";
-	public static final String READ_POLICY = "readpol";
-	public static final String LOAD_CONDITION_IMMEDIATE = "loadcondi";
-	public static final String UNLOAD_CONDITION_IMMEDIATE = "unloadcondi";
+	public static final Map<String, String[]> table = Map.ofEntries(
+			entry(PolicyOpConstants.GET_POLICY, new String[]{
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.SET_POLICY, new String[]{
+					PolicyOpConstants.PARAM_POLICY,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.ADD_ELEMENT, new String[]{
+					PolicyOpConstants.PARAM_POLICY, 
+					PolicyOpConstants.PARAM_POLICY_ELEMENT,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.ADD_MULTIPLE_ELEMENTS, new String[]{
+					PolicyOpConstants.PARAM_POLICY, 
+					PolicyOpConstants.PARAM_POLICY_ELEMENTS,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.DELETE, new String[]{
+					PolicyOpConstants.PARAM_POLICY, 
+					PolicyOpConstants.PARAM_POLICY_ELEMENT,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.DELETE_MULTIPLE_ELEMENTS, new String[]{
+					PolicyOpConstants.PARAM_ADMIN_TOKEN,
+					PolicyOpConstants.PARAM_POLICY, 
+					PolicyOpConstants.PARAM_POLICY_ELEMENTS,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.COMBINE_POLICIES, new String[]{
+					PolicyOpConstants.PARAM_POLICY_1, 
+					PolicyOpConstants.PARAM_POLICY_2,
+					PolicyOpConstants.PARAM_COMBINE_POLICY_IDENTIFIER,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.LOAD_POLICY, new String[]{
+					PolicyOpConstants.PARAM_POLICY_FILENAME,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.LOAD_POLICY_IMMEDIATE, new String[]{
+					PolicyOpConstants.PARAM_POLICY_SPECIFIER,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.UNLOAD_POLICY, new String[]{
+					PolicyOpConstants.PARAM_POLICY,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.READ_POLICY, new String[]{
+					PolicyOpConstants.PARAM_POLICY,
+					PolicyOpConstants.PARAM_ADMIN_TOKEN
+					}),
+			entry(PolicyOpConstants.ACCESS_QUERY, new String[]{
+					PolicyOpConstants.PARAM_USER,
+					PolicyOpConstants.PARAM_ACCESS_RIGHT,
+					PolicyOpConstants.PARAM_OBJECT
+					}),
+			entry(PolicyOpConstants.CONDITIONAL_ACCESS_QUERY, new String[]{
+					PolicyOpConstants.PARAM_USER,
+					PolicyOpConstants.PARAM_ACCESS_RIGHT,
+					PolicyOpConstants.PARAM_OBJECT,
+					PolicyOpConstants.PARAM_CONDITION
+					})
+			);
 	
-	// Query set
-	public static final String ACCESS_QUERY = "access";
-	public static final String CONDITIONAL_ACCESS_QUERY = "caccess";
-	public static final String MULTIPLE_ACCESS_QUERY = "accessm";
-	public static final String GET_OBJECT_INFO = "getobjectinfo";
-	public static final String USERS_QUERY = "users";
-	
-
 	public PolicyOpTable() {
 		throw new UnsupportedOperationException();
 	}

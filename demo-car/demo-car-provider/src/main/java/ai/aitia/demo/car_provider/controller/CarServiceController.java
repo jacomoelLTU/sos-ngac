@@ -37,8 +37,6 @@ public class CarServiceController {
 	
 	@Autowired
 	private ApiHandler apiHandler;
-	
-	// betyder autowired att man inte behöver skapa en instans? Utforska..
 
 	// =================================================================================================
 	// methods
@@ -91,18 +89,14 @@ public class CarServiceController {
 	@ResponseBody
 	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) {
 		PolicyResponseDTO respdto = new PolicyResponseDTO("test", "test", "test");
-		System.out.println("INSIDE PROVIDER PAI FUNCTION");
-		System.out.println("ADMIN OP: " + dto.getOp());
 		return respdto;
 	}
 
 	@PostMapping(value = CarProviderConstants.QUERY_INTERFACE_URI, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PolicyResponseDTO pqi(@RequestBody final PolicyRequestDTO dto) {
-		PolicyResponseDTO respdto = new PolicyResponseDTO("test", "test", "test");
-		System.out.println("INSIDE PROVIDER PQI FUNCTION");
-		System.out.println("QUERY OP: " + dto.getOp());
-		return respdto;
+	public PolicyResponseDTO pqi(@RequestBody final PolicyRequestDTO dto) throws Exception {
+		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, CarProviderConstants.NGAC_SERVER_QUERY_API);
+		return responseDTO;
 	}
 
 	// -------------------------------------------------------------------------------------------------

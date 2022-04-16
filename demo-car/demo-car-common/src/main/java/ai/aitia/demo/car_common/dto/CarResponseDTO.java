@@ -2,6 +2,7 @@ package ai.aitia.demo.car_common.dto;
 
 import java.io.Serializable;
 
+
 public class CarResponseDTO implements Serializable {
 
 	//=================================================================================================

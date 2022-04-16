@@ -2,6 +2,7 @@ package ai.aitia.demo.car_common.dto;
 
 import java.io.Serializable;
 
+
 public class CarRequestDTO implements Serializable {
 
 	//=================================================================================================
@@ -14,6 +15,7 @@ public class CarRequestDTO implements Serializable {
 
 	//=================================================================================================
 	// methods
+	public CarRequestDTO() {}
 	
 	//-------------------------------------------------------------------------------------------------
 	public CarRequestDTO(final String brand, final String color) {
