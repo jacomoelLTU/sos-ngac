@@ -83,15 +83,6 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 		}		
 		
 		//Register services into ServiceRegistry
-		final ServiceRegistryRequestDTO createCarServiceRequest = createServiceRegistryRequest(CarProviderConstants.CREATE_CAR_SERVICE_DEFINITION, CarProviderConstants.CAR_URI, HttpMethod.POST);		
-		arrowheadService.forceRegisterServiceToServiceRegistry(createCarServiceRequest);
-		
-		ServiceRegistryRequestDTO getCarServiceRequest = createServiceRegistryRequest(CarProviderConstants.GET_CAR_SERVICE_DEFINITION,  CarProviderConstants.CAR_URI, HttpMethod.GET);
-		getCarServiceRequest.getMetadata().put(CarProviderConstants.REQUEST_PARAM_KEY_BRAND, CarProviderConstants.REQUEST_PARAM_BRAND);
-		getCarServiceRequest.getMetadata().put(CarProviderConstants.REQUEST_PARAM_KEY_COLOR, CarProviderConstants.REQUEST_PARAM_COLOR);
-		arrowheadService.forceRegisterServiceToServiceRegistry(getCarServiceRequest);
-		
-		// Policy server registry
 		final ServiceRegistryRequestDTO paiServiceRequest = createServiceRegistryRequest(
 				CarProviderConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, 
 				CarProviderConstants.ADMIN_INTERFACE_URI, 
@@ -110,8 +101,8 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 	@Override
 	public void customDestroy() {
 		//Unregister service
-		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.CREATE_CAR_SERVICE_DEFINITION, CarProviderConstants.CAR_URI);
-		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.GET_CAR_SERVICE_DEFINITION, CarProviderConstants.CAR_URI);
+		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, CarProviderConstants.ADMIN_INTERFACE_URI);
+		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.QUERY_INTERFACE_SERVICE_DEFINITION, CarProviderConstants.QUERY_INTERFACE_URI);
 	}
 	
 	//=================================================================================================
