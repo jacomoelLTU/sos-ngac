@@ -19,10 +19,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
-import ai.aitia.demo.car_provider.CarProviderConstants;
 import ai.aitia.arrowhead.application.library.ArrowheadService;
 import ai.aitia.arrowhead.application.library.config.ApplicationInitListener;
 import ai.aitia.arrowhead.application.library.util.ApplicationCommonConstants;
+import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 import eu.arrowhead.application.skeleton.provider.security.ProviderSecurityConfig;
 import eu.arrowhead.common.CommonConstants;
 import eu.arrowhead.common.Utilities;
@@ -84,14 +84,14 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 		
 		//Register services into ServiceRegistry
 		final ServiceRegistryRequestDTO paiServiceRequest = createServiceRegistryRequest(
-				CarProviderConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, 
-				CarProviderConstants.ADMIN_INTERFACE_URI, 
+				PolicyServerConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, 
+				PolicyServerConstants.ADMIN_INTERFACE_URI, 
 				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(paiServiceRequest);
 		
 		final ServiceRegistryRequestDTO pqiServiceRequest = createServiceRegistryRequest(
-				CarProviderConstants.QUERY_INTERFACE_SERVICE_DEFINITION, 
-				CarProviderConstants.QUERY_INTERFACE_URI, 
+				PolicyServerConstants.QUERY_INTERFACE_SERVICE_DEFINITION, 
+				PolicyServerConstants.QUERY_INTERFACE_URI, 
 				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(pqiServiceRequest);
 		
@@ -101,8 +101,8 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 	@Override
 	public void customDestroy() {
 		//Unregister service
-		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, CarProviderConstants.ADMIN_INTERFACE_URI);
-		arrowheadService.unregisterServiceFromServiceRegistry(CarProviderConstants.QUERY_INTERFACE_SERVICE_DEFINITION, CarProviderConstants.QUERY_INTERFACE_URI);
+		arrowheadService.unregisterServiceFromServiceRegistry(PolicyServerConstants.ADMIN_INTERFACE_SERVICE_DEFINITION, PolicyServerConstants.ADMIN_INTERFACE_URI);
+		arrowheadService.unregisterServiceFromServiceRegistry(PolicyServerConstants.QUERY_INTERFACE_SERVICE_DEFINITION, PolicyServerConstants.QUERY_INTERFACE_URI);
 	}
 	
 	//=================================================================================================
@@ -148,19 +148,19 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 		if (sslEnabled && tokenSecurityFilterEnabled) {
 			systemRequest.setAuthenticationInfo(Base64.getEncoder().encodeToString(arrowheadService.getMyPublicKey().getEncoded()));
 			serviceRegistryRequest.setSecure(ServiceSecurityType.TOKEN.name());
-			serviceRegistryRequest.setInterfaces(List.of(CarProviderConstants.INTERFACE_SECURE));
+			serviceRegistryRequest.setInterfaces(List.of(PolicyServerConstants.INTERFACE_SECURE));
 		} else if (sslEnabled) {
 			systemRequest.setAuthenticationInfo(Base64.getEncoder().encodeToString(arrowheadService.getMyPublicKey().getEncoded()));
 			serviceRegistryRequest.setSecure(ServiceSecurityType.CERTIFICATE.name());
-			serviceRegistryRequest.setInterfaces(List.of(CarProviderConstants.INTERFACE_SECURE));
+			serviceRegistryRequest.setInterfaces(List.of(PolicyServerConstants.INTERFACE_SECURE));
 		} else {
 			serviceRegistryRequest.setSecure(ServiceSecurityType.NOT_SECURE.name());
-			serviceRegistryRequest.setInterfaces(List.of(CarProviderConstants.INTERFACE_INSECURE));
+			serviceRegistryRequest.setInterfaces(List.of(PolicyServerConstants.INTERFACE_INSECURE));
 		}
 		serviceRegistryRequest.setProviderSystem(systemRequest);
 		serviceRegistryRequest.setServiceUri(serviceUri);
 		serviceRegistryRequest.setMetadata(new HashMap<>());
-		serviceRegistryRequest.getMetadata().put(CarProviderConstants.HTTP_METHOD, httpMethod.name());
+		serviceRegistryRequest.getMetadata().put(PolicyServerConstants.HTTP_METHOD, httpMethod.name());
 		return serviceRegistryRequest;
 	}
 }

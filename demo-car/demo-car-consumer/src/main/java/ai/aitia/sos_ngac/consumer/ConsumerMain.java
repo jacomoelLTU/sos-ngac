@@ -1,4 +1,4 @@
-package ai.aitia.demo.car_consumer;
+package ai.aitia.sos_ngac.consumer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,9 +11,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
 
 import ai.aitia.arrowhead.application.library.ArrowheadService;
-import ai.aitia.demo.car_common.dto.PolicyOpConstants;
-import ai.aitia.demo.car_common.dto.PolicyRequestDTO;
-import ai.aitia.demo.car_common.dto.PolicyResponseDTO;
+import ai.aitia.sos_ngac.common.PolicyOpConstants;
+import ai.aitia.sos_ngac.common.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.PolicyResponseDTO;
 import eu.arrowhead.common.CommonConstants;
 import eu.arrowhead.common.SSLProperties;
 import eu.arrowhead.common.Utilities;
@@ -27,8 +27,8 @@ import eu.arrowhead.common.dto.shared.ServiceQueryFormDTO;
 import eu.arrowhead.common.exception.InvalidParameterException;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {CommonConstants.BASE_PACKAGE, CarConsumerConstants.BASE_PACKAGE})
-public class CarConsumerMain implements ApplicationRunner {
+@ComponentScan(basePackages = {CommonConstants.BASE_PACKAGE, ConsumerConstants.BASE_PACKAGE})
+public class ConsumerMain implements ApplicationRunner {
     
     //=================================================================================================
 	// members
@@ -39,14 +39,14 @@ public class CarConsumerMain implements ApplicationRunner {
     @Autowired
 	protected SSLProperties sslProperties;
     
-    private final Logger logger = LogManager.getLogger(CarConsumerMain.class);
+    private final Logger logger = LogManager.getLogger(ConsumerMain.class);
     
     //=================================================================================================
 	// methods
 
 	//------------------------------------------------------------------------------------------------
     public static void main( final String[] args ) {
-    	SpringApplication.run(CarConsumerMain.class, args);
+    	SpringApplication.run(ConsumerMain.class, args);
     }
 
     //-------------------------------------------------------------------------------------------------
@@ -57,8 +57,8 @@ public class CarConsumerMain implements ApplicationRunner {
     
     
     public void pqiOrchestrationAndConsumption() {
-    	logger.info("Orchestration request for " + CarConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION + " service:");
-    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(CarConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION)
+    	logger.info("Orchestration request for " + ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION + " service:");
+    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION)
     																		.interfaces(getInterface())
     																		.build();
     	
@@ -81,14 +81,14 @@ public class CarConsumerMain implements ApplicationRunner {
 			logger.info("No provider found during the orchestration");
 		} else {
 			final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
-			validateOrchestrationResult(orchestrationResult, CarConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION);
+			validateOrchestrationResult(orchestrationResult, ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION);
 			
 			final PolicyRequestDTO dto = new PolicyRequestDTO(PolicyOpConstants.ACCESS_QUERY, new String[]{"jesper", "r", "hobbit"});
 			
 			logger.info("QUERY INTERFACE REQUEST: ");
 			printOut(dto);
 			final String token = orchestrationResult.getAuthorizationTokens() == null ? null : orchestrationResult.getAuthorizationTokens().get(getInterface());
-			final PolicyResponseDTO carCreated = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(CarConsumerConstants.HTTP_METHOD)),
+			final PolicyResponseDTO carCreated = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
 					orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(), orchestrationResult.getServiceUri(),
 					getInterface(), token, dto, new String[0]);
 			logger.info("Provider response");
@@ -103,7 +103,7 @@ public class CarConsumerMain implements ApplicationRunner {
     
     //-------------------------------------------------------------------------------------------------
     private String getInterface() {
-    	return sslProperties.isSslEnabled() ? CarConsumerConstants.INTERFACE_SECURE : CarConsumerConstants.INTERFACE_INSECURE;
+    	return sslProperties.isSslEnabled() ? ConsumerConstants.INTERFACE_SECURE : ConsumerConstants.INTERFACE_INSECURE;
     }
     
     //-------------------------------------------------------------------------------------------------

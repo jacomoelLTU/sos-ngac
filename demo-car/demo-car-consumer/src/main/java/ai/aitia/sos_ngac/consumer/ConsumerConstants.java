@@ -1,6 +1,6 @@
-package ai.aitia.demo.car_consumer;
+package ai.aitia.sos_ngac.consumer;
 
-public class CarConsumerConstants {
+public class ConsumerConstants {
 	
 	// Members
 	public static final String BASE_PACKAGE = "ai.aitia";
@@ -16,7 +16,7 @@ public class CarConsumerConstants {
 	public static final String ADMIN_TOKEN = "admin_token";
 
 	
-	private CarConsumerConstants() {
+	private ConsumerConstants() {
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,6 +1,6 @@
-package ai.aitia.demo.car_provider;
+package ai.aitia.sos_ngac.policy_server;
 
-public class CarProviderConstants {
+public class PolicyServerConstants {
 	
 	public static final String BASE_PACKAGE = "ai.aitia";
 	
@@ -17,7 +17,7 @@ public class CarProviderConstants {
 	public static final String HTTP_METHOD = "http-method";
 	
 
-	private CarProviderConstants() {
+	private PolicyServerConstants() {
 		throw new UnsupportedOperationException();
 	}
 }

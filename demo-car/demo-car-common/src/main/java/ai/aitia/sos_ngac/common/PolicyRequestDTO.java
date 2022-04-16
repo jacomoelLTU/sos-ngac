@@ -1,4 +1,4 @@
-package ai.aitia.demo.car_common.dto;
+package ai.aitia.sos_ngac.common;
 
 import java.io.Serializable;
 

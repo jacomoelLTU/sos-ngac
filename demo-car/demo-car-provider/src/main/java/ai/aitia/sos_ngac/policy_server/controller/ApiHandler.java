@@ -1,4 +1,4 @@
-package ai.aitia.demo.car_provider.controller;
+package ai.aitia.sos_ngac.policy_server.controller;
 
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -12,10 +12,10 @@ import org.jose4j.json.internal.json_simple.parser.JSONParser;
 import org.jose4j.json.internal.json_simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
-import ai.aitia.demo.car_common.dto.PolicyOpTable;
-import ai.aitia.demo.car_common.dto.PolicyRequestDTO;
-import ai.aitia.demo.car_common.dto.PolicyResponseDTO;
-import ai.aitia.demo.car_provider.CarProviderConstants;
+import ai.aitia.sos_ngac.common.PolicyOpTable;
+import ai.aitia.sos_ngac.common.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
 import static java.util.stream.Collectors.joining;
 
@@ -58,7 +58,7 @@ public class ApiHandler {
                 .stream()
                 .map(e -> e.getKey() + e.getValue())
                 .collect(joining("&"));
-		URL url = new URL(CarProviderConstants.NGAC_SERVER_ADDRESS + serverApi + op + params);
+		URL url = new URL(PolicyServerConstants.NGAC_SERVER_ADDRESS + serverApi + op + params);
 		System.out.println("Generated URL: "+ url);  // TODO: Remove
 		return url;
  	}

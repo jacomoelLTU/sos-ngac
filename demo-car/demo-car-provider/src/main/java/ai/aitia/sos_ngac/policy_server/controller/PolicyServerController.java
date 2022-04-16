@@ -1,4 +1,4 @@
-package ai.aitia.demo.car_provider.controller;
+package ai.aitia.sos_ngac.policy_server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,31 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import ai.aitia.demo.car_common.dto.PolicyRequestDTO;
-import ai.aitia.demo.car_common.dto.PolicyResponseDTO;
-import ai.aitia.demo.car_provider.CarProviderConstants;
+import ai.aitia.sos_ngac.common.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
 
 @RestController
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-public class CarServiceController {
+public class PolicyServerController {
 	
 	@Autowired
 	private ApiHandler apiHandler;
 
 	// -------------------------------------------------------------------------------------------------
-	@PostMapping(value = CarProviderConstants.ADMIN_INTERFACE_URI)
+	@PostMapping(value = PolicyServerConstants.ADMIN_INTERFACE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) {
 		PolicyResponseDTO respdto = new PolicyResponseDTO("test", "test", "test");
 		return respdto;
 	}
 
-	@PostMapping(value = CarProviderConstants.QUERY_INTERFACE_URI)
+	@PostMapping(value = PolicyServerConstants.QUERY_INTERFACE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pqi(@RequestBody final PolicyRequestDTO dto) throws Exception {
-		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, CarProviderConstants.NGAC_SERVER_QUERY_API);
+		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, PolicyServerConstants.NGAC_SERVER_QUERY_API);
 		return responseDTO;
 	}
 }
