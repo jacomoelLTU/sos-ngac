@@ -8,12 +8,13 @@
 		<version>4.4.0.2</version>
 	</parent>
 	
-	<artifactId>demo-car</artifactId>
+	<artifactId>sos-ngac</artifactId>
+	<name>SoS NGAC</name>
 	<packaging>pom</packaging>
 	
 	<modules>
-	    <module>demo-car-common</module>
-	    <module>demo-car-consumer</module>
-	    <module>demo-car-provider</module>		
+	    <module>sos-ngac-common</module>
+	    <module>sos-ngac-consumer</module>
+	    <module>sos-ngac-policy-server</module>		
 	</modules>
 </project>

@@ -3,17 +3,17 @@
 	
 	<parent>
     	<groupId>eu.arrowhead</groupId>
-    	<artifactId>demo-car</artifactId>
+    	<artifactId>sos-ngac</artifactId>
     	<version>4.4.0.2</version>
   	</parent>
 	
-	<artifactId>demo-car-consumer</artifactId>
-	<name>Arrowhead Demo Car Consumer</name>
+	<artifactId>sos-ngac-consumer</artifactId>
+	<name>SoS NGAC Consumer</name>
 	
 	<dependencies>
 		<dependency>
 			<groupId>eu.arrowhead</groupId>
-			<artifactId>demo-car-common</artifactId>
+			<artifactId>sos-ngac-common</artifactId>
 			<version>4.4.0.2</version>
 		</dependency>
 	</dependencies>

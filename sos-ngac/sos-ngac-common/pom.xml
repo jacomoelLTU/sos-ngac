@@ -4,12 +4,12 @@
   
   <parent>
     <groupId>eu.arrowhead</groupId>
-    <artifactId>demo-car</artifactId>
+    <artifactId>sos-ngac</artifactId>
     <version>4.4.0.2</version>
   </parent>
   
-  <artifactId>demo-car-common</artifactId>
-  <name>Arrowhead Demo Car Common</name>
+  <artifactId>sos-ngac-common</artifactId>
+  <name>SoS NGAC Common</name>
   
   <build>
 		<plugins>
