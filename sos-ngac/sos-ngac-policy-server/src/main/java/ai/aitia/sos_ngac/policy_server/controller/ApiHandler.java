@@ -51,7 +51,7 @@ public class ApiHandler {
 
 	/* 
 	 * Confirms request DTO with PolicyOpTable and returns a HashMap parameter body on valid query.
-	 * HashMap structure: { PARAMETER-DEFINITION-CONSTANT : given consumer parameter from requestDTO }
+	 * HashMap structure: { PARAMETER-DEFINITION-CONSTANT : given consumer parameter from request DTO }
 	 */
 	private HashMap<String, String> evalRequest(PolicyRequestDTO dto) throws Exception {
 		String op = dto.getOp();
@@ -70,14 +70,14 @@ public class ApiHandler {
 		return argTable;
 	}
 	
-	// Creates URL by adding service definition and unpacking the parambody HashMap
+	// Creates URL by unpacking paramBody HashMap and appending NGAC server address with service definition 
 	private URL createURL(String serverApi, String op, HashMap<String,String> paramBody) throws MalformedURLException {
 		String params = paramBody.entrySet()
                 .stream()
                 .map(e -> e.getKey() + e.getValue())
                 .collect(joining("&"));
 		URL url = new URL(PolicyServerConstants.NGAC_SERVER_ADDRESS + serverApi + op + params);
-		System.out.println("Generated URL: "+ url);  // TODO: Remove
+		System.out.println("Generated URL: "+ url);
 		return url;
  	}
 	

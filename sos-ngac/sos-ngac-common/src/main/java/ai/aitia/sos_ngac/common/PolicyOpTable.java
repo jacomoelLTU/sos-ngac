@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 /* 
  * All implemented API calls of the NGAC policy query- and admin interfaces.
- * The policy server will validate incoming requests through this table;
+ * The policy server will validate incoming requests with this table;
  * hence, a policy request DTO should be sent with a defined operation
  * constant and its corresponding parameters listed in this table. 
  * 
