@@ -21,22 +21,39 @@ import static java.util.stream.Collectors.joining;
 
 import java.io.IOException;
 
+/* 
+ * API handler class for NGAC server interactions
+ */
+
 @Component
 public class ApiHandler {
 
+	// Entry function for the API handler. Returns a responseDTO on valid query
 	public PolicyResponseDTO handleRequest(PolicyRequestDTO requestDTO, String ngacServerApi) throws Exception {
+		
+		// Evaluate consumer params and get generated paramBody HashMap
 		HashMap<String, String> paramBody = evalRequest(requestDTO);
+		
+		// Generate URL with service definition and paramBody
 		URL requestURL = createURL(ngacServerApi, requestDTO.getOp(), paramBody);
+		
+		// Query server and retrieve JSON response
 		JSONObject serverResponse = sendServerRequest(requestURL);
+		
+		// Convert server JSON response to responseDTO
 		PolicyResponseDTO responseDTO = convertToDTO(serverResponse);
+		
 		return responseDTO;
 	}
+	
+	
+	/* ------------------ Assistant methods ----------------------- */
 
 	/* 
 	 * Confirms request DTO with PolicyOpTable and returns a HashMap parameter body on valid query.
-	 * HashMap structure: { PARAMETER-DEFINITION : parameter from request DTO }
+	 * HashMap structure: { PARAMETER-DEFINITION-CONSTANT : given consumer parameter from requestDTO }
 	 */
-	public HashMap<String, String> evalRequest(PolicyRequestDTO dto) throws Exception {
+	private HashMap<String, String> evalRequest(PolicyRequestDTO dto) throws Exception {
 		String op = dto.getOp();
 		String[] args = dto.getArgs();
 		String[] operationParams = PolicyOpTable.table.get(dto.getOp());
@@ -44,6 +61,7 @@ public class ApiHandler {
 		if (operationParams.length != args.length) {
 			throw new Exception("Invalid parameters for operation: " + op + ". Expected: " + Arrays.toString(operationParams));
 		}
+		
 		HashMap<String, String> argTable = new HashMap<>();
 		for (int i = 0; i < operationParams.length; i++) {
 			argTable.put(operationParams[i], args[i]);
@@ -52,7 +70,8 @@ public class ApiHandler {
 		return argTable;
 	}
 	
-	public URL createURL(String serverApi, String op, HashMap<String,String> paramBody) throws MalformedURLException {
+	// Creates URL by adding service definition and unpacking the parambody HashMap
+	private URL createURL(String serverApi, String op, HashMap<String,String> paramBody) throws MalformedURLException {
 		String params = paramBody.entrySet()
                 .stream()
                 .map(e -> e.getKey() + e.getValue())
@@ -63,7 +82,7 @@ public class ApiHandler {
  	}
 	
 	// Sends a request to the NGAC server and returns the server JSON response
-	public JSONObject sendServerRequest(URL serverURL) throws IOException, ParseException {
+	private JSONObject sendServerRequest(URL serverURL) throws IOException, ParseException {
 		HttpURLConnection conn = (HttpURLConnection)serverURL.openConnection();
 		conn.setRequestMethod("GET");
 		conn.connect();
@@ -86,13 +105,11 @@ public class ApiHandler {
 	}
 	
 	// Converts server JSON response to PolicyResponseDTO
-	public PolicyResponseDTO convertToDTO(JSONObject serverResponse) {
+	private PolicyResponseDTO convertToDTO(JSONObject serverResponse) {
 		String respBody = (String) serverResponse.get("respBody");
 		String respMessage = (String) serverResponse.get("respMessage");
 		String respStatus = (String) serverResponse.get("respStatus");
 		return new PolicyResponseDTO(respBody,respMessage,respStatus);
 	}
 	
-	
-
 }

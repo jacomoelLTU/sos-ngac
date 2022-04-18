@@ -10,7 +10,8 @@ import java.util.HashMap;
  * The policy server will validate incoming requests through this table;
  * hence, a policy request DTO should be sent with a defined operation
  * constant and its corresponding parameters listed in this table. 
- * */
+ * 
+ */
 public class PolicyOpTable {
 	
 	public static final Map<String, String[]> table = Map.ofEntries(

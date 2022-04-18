@@ -55,7 +55,7 @@ public class ConsumerMain implements ApplicationRunner {
     	pqiOrchestrationAndConsumption();
 	}
     
-    
+    // Test Policy Query interface
     public void pqiOrchestrationAndConsumption() {
     	logger.info("Orchestration request for " + ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION + " service:");
     	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION)

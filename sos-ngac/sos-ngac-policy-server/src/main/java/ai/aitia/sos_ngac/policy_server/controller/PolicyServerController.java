@@ -12,6 +12,9 @@ import ai.aitia.sos_ngac.common.PolicyRequestDTO;
 import ai.aitia.sos_ngac.common.PolicyResponseDTO;
 import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
+/* 
+ * Controller class for mapping Policy Server provider services
+ */
 
 @RestController
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -20,7 +23,7 @@ public class PolicyServerController {
 	@Autowired
 	private ApiHandler apiHandler;
 
-	// -------------------------------------------------------------------------------------------------
+	
 	@PostMapping(value = PolicyServerConstants.ADMIN_INTERFACE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) throws Exception {
