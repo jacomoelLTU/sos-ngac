@@ -15,6 +15,7 @@
 	<modules>
 	    <module>sos-ngac-common</module>
 	    <module>sos-ngac-consumer</module>
-	    <module>sos-ngac-policy-server</module>		
+	    <module>sos-ngac-policy-server</module>
+	    <module>sos-ngac-resource-system</module>	
 	</modules>
 </project>

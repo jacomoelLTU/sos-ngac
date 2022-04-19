@@ -14,9 +14,9 @@
 	<version>4.4.0.2</version>
 	<packaging>pom</packaging>
 	<name>SoS NGAC Project</name>
-	<description>Arrowhead Client Demo using Spring Boot</description>
+	<description>SoS NGAC Project Demo</description>
 	
-	<url>https://github.com/arrowhead-f/sos-examples-spring</url>
+	<url>https://github.com/esen96/sos-ngac</url>
 	<licenses>
     	<license>
 	     	<name>Eclipse Public License - v 2.0</name>
