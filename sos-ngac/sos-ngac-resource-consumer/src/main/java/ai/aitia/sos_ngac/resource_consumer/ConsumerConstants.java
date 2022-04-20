@@ -1,4 +1,4 @@
-package ai.aitia.sos_ngac.consumer;
+package ai.aitia.sos_ngac.resource_consumer;
 
 public class ConsumerConstants {
 	
@@ -9,11 +9,8 @@ public class ConsumerConstants {
 	public static final String INTERFACE_INSECURE = "HTTP-INSECURE-JSON";
 	public static final String HTTP_METHOD = "http-method";
 	
-	public static final String ADMIN_INTERFACE_SERVICE_DEFINITION = "admin-interface";
-	public static final String QUERY_INTERFACE_SERVICE_DEFINITION = "query-interface";
-	public static final String ADMIN_INTERFACE_URI = "/pai";
-	public static final String QUERY_INTERFACE_URI = "/pqi";
-	public static final String ADMIN_TOKEN = "admin_token";
+	public static final String REQUEST_RESOURCE_SERVICE_DEFINITION = "request-resource";
+	public static final String REQUEST_RESOURCE_URI = "/request";
 
 	
 	private ConsumerConstants() {

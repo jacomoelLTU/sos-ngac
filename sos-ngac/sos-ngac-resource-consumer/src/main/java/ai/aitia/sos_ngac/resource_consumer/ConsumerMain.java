@@ -1,4 +1,4 @@
-package ai.aitia.sos_ngac.consumer;
+package ai.aitia.sos_ngac.resource_consumer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,13 +52,13 @@ public class ConsumerMain implements ApplicationRunner {
     //-------------------------------------------------------------------------------------------------
     @Override
 	public void run(final ApplicationArguments args) throws Exception {
-    	pqiOrchestrationAndConsumption();
+    	requestResourceOrchestrationAndConsumption();
 	}
     
     // Test Policy Query interface
-    public void pqiOrchestrationAndConsumption() {
-    	logger.info("Orchestration request for " + ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION + " service:");
-    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION)
+    public void requestResourceOrchestrationAndConsumption() {
+    	logger.info("Orchestration request for " + ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION + " service:");
+    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION)
     																		.interfaces(getInterface())
     																		.build();
     	
@@ -81,18 +81,19 @@ public class ConsumerMain implements ApplicationRunner {
 			logger.info("No provider found during the orchestration");
 		} else {
 			final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
-			validateOrchestrationResult(orchestrationResult, ConsumerConstants.QUERY_INTERFACE_SERVICE_DEFINITION);
+			validateOrchestrationResult(orchestrationResult, ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION);
 			
 			final PolicyRequestDTO dto = new PolicyRequestDTO(PolicyOpConstants.ACCESS_QUERY, new String[]{"jesper", "r", "hobbit"});
 			
 			logger.info("QUERY INTERFACE REQUEST: ");
 			printOut(dto);
 			final String token = orchestrationResult.getAuthorizationTokens() == null ? null : orchestrationResult.getAuthorizationTokens().get(getInterface());
-			final PolicyResponseDTO carCreated = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
+			
+			final PolicyResponseDTO resourceRequest = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
 					orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(), orchestrationResult.getServiceUri(),
 					getInterface(), token, dto, new String[0]);
 			logger.info("Provider response");
-			printOut(carCreated);
+			printOut(resourceRequest);
 				
 		}
     }

@@ -86,13 +86,13 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 		final ServiceRegistryRequestDTO resourceServiceRequest = createServiceRegistryRequest(
 				ResourceSystemConstants.REQUEST_RESOURCE_SERVICE_DEFINITION, 
 				ResourceSystemConstants.REQUEST_RESOURCE_URI, 
-				HttpMethod.GET);		
+				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(resourceServiceRequest);
 		
 		final ServiceRegistryRequestDTO fetchServiceRequest = createServiceRegistryRequest(
 				ResourceSystemConstants.FETCH_RESOURCE_SERVICE_DEFINITION, 
 				ResourceSystemConstants.FETCH_RESOURCE_URI, 
-				HttpMethod.GET);		
+				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(fetchServiceRequest);
 		
 	}
