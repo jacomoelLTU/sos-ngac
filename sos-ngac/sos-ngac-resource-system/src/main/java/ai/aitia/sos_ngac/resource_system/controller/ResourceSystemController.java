@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ai.aitia.sos_ngac.common.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+
 import ai.aitia.sos_ngac.resource_system.ResourceSystemConstants;
+import ai.aitia.sos_ngac.resource_system.pep.PolicyEnforcementPoint;
+import ai.aitia.sos_ngac.resource_system.pep.PolicyResponseDTO;
+import ai.aitia.sos_ngac.resource_system.pep.ResourceRequestDTO;
 
 /* 
  * Controller class for mapping resource system provider services
@@ -20,16 +22,14 @@ import ai.aitia.sos_ngac.resource_system.ResourceSystemConstants;
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ResourceSystemController {
 
+	@Autowired 
+	private PolicyEnforcementPoint pep;
 	
 	@PostMapping(value = ResourceSystemConstants.REQUEST_RESOURCE_URI)
 	@ResponseBody
-	public PolicyResponseDTO requestResource(@RequestBody final PolicyRequestDTO dto) {
-		PolicyResponseDTO test = new PolicyResponseDTO("test", "test", "test");
-		return test;
+	public PolicyResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception {
+		////PolicyResponseDTO test = new PolicyResponseDTO("test", "test", "test");
+		//return test;
+		return pep.queryPolicyServer(dto);
 	} 
-
-	/*
-	@PostMapping(value = ResourceSystemConstants.FETCH_RESOURCE_URI)
-	@ResponseBody
-	public ResourceResponseDTO fetchResource(@RequestBody final PolicyRequestDTO dto) throws Exception {} */
 }

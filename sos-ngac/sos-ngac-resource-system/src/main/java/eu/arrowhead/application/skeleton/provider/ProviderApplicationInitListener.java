@@ -71,6 +71,8 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 
 		//Checking the availability of necessary core systems
 		checkCoreSystemReachability(CoreSystem.SERVICEREGISTRY);
+		checkCoreSystemReachability(CoreSystem.ORCHESTRATOR);
+		
 		if (sslEnabled && tokenSecurityFilterEnabled) {
 			checkCoreSystemReachability(CoreSystem.AUTHORIZATION);			
 
@@ -82,18 +84,15 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 			logger.info("TokenSecurityFilter in not active");
 		}		
 		
+		//Initialize Arrowhead Context
+		arrowheadService.updateCoreServiceURIs(CoreSystem.ORCHESTRATOR);
+		
 		//Register services into ServiceRegistry
 		final ServiceRegistryRequestDTO resourceServiceRequest = createServiceRegistryRequest(
 				ResourceSystemConstants.REQUEST_RESOURCE_SERVICE_DEFINITION, 
 				ResourceSystemConstants.REQUEST_RESOURCE_URI, 
 				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(resourceServiceRequest);
-		
-		final ServiceRegistryRequestDTO fetchServiceRequest = createServiceRegistryRequest(
-				ResourceSystemConstants.FETCH_RESOURCE_SERVICE_DEFINITION, 
-				ResourceSystemConstants.FETCH_RESOURCE_URI, 
-				HttpMethod.POST);		
-		arrowheadService.forceRegisterServiceToServiceRegistry(fetchServiceRequest);
 		
 	}
 	
@@ -102,7 +101,6 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 	public void customDestroy() {
 		//Unregister service
 		arrowheadService.unregisterServiceFromServiceRegistry(ResourceSystemConstants.REQUEST_RESOURCE_SERVICE_DEFINITION, ResourceSystemConstants.REQUEST_RESOURCE_URI);
-		arrowheadService.unregisterServiceFromServiceRegistry(ResourceSystemConstants.FETCH_RESOURCE_SERVICE_DEFINITION, ResourceSystemConstants.FETCH_RESOURCE_URI);
 	}
 	
 	//=================================================================================================

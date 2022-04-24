@@ -14,6 +14,7 @@ import ai.aitia.arrowhead.application.library.ArrowheadService;
 import ai.aitia.sos_ngac.common.PolicyOpConstants;
 import ai.aitia.sos_ngac.common.PolicyRequestDTO;
 import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+import ai.aitia.sos_ngac.common.ResourceRequestDTO;
 import eu.arrowhead.common.CommonConstants;
 import eu.arrowhead.common.SSLProperties;
 import eu.arrowhead.common.Utilities;
@@ -52,11 +53,11 @@ public class ConsumerMain implements ApplicationRunner {
     //-------------------------------------------------------------------------------------------------
     @Override
 	public void run(final ApplicationArguments args) throws Exception {
-    	requestResourceOrchestrationAndConsumption();
+    	requestResource();
 	}
     
     // Test Policy Query interface
-    public void requestResourceOrchestrationAndConsumption() {
+    public void requestResource() {
     	logger.info("Orchestration request for " + ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION + " service:");
     	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION)
     																		.interfaces(getInterface())
@@ -83,7 +84,9 @@ public class ConsumerMain implements ApplicationRunner {
 			final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
 			validateOrchestrationResult(orchestrationResult, ConsumerConstants.REQUEST_RESOURCE_SERVICE_DEFINITION);
 			
-			final PolicyRequestDTO dto = new PolicyRequestDTO(PolicyOpConstants.ACCESS_QUERY, new String[]{"jesper", "r", "hobbit"});
+			final ResourceRequestDTO dto = new ResourceRequestDTO("jesper", "r", "hobbit");
+			
+			//final PolicyRequestDTO dto = new PolicyRequestDTO(PolicyOpConstants.ACCESS_QUERY, new String[]{"jesper", "r", "hobbit"});
 			
 			logger.info("QUERY INTERFACE REQUEST: ");
 			printOut(dto);
