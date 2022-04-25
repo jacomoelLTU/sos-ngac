@@ -1,4 +1,4 @@
-package ai.aitia.sos_ngac.common;
+package ai.aitia.sos_ngac.common.policy;
 
 public class PolicyOpConstants {
 	

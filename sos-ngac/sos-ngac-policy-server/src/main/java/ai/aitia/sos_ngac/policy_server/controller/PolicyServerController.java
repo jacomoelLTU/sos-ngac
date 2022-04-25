@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ai.aitia.sos_ngac.common.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
 import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
 /* 

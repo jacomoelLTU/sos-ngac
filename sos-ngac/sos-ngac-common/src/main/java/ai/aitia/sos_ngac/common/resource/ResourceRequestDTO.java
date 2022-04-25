@@ -1,4 +1,4 @@
-package ai.aitia.sos_ngac.common;
+package ai.aitia.sos_ngac.common.resource;
 
 import java.io.Serializable;
 

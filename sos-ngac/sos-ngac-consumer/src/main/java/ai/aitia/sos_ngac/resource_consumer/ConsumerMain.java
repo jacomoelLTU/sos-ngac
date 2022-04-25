@@ -11,10 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
 
 import ai.aitia.arrowhead.application.library.ArrowheadService;
-import ai.aitia.sos_ngac.common.PolicyOpConstants;
-import ai.aitia.sos_ngac.common.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.PolicyResponseDTO;
-import ai.aitia.sos_ngac.common.ResourceRequestDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyOpConstants;
+import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
+import ai.aitia.sos_ngac.common.resource.ResourceRequestDTO;
 import eu.arrowhead.common.CommonConstants;
 import eu.arrowhead.common.SSLProperties;
 import eu.arrowhead.common.Utilities;

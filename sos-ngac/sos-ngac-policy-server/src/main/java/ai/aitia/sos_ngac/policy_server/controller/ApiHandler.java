@@ -12,9 +12,9 @@ import org.jose4j.json.internal.json_simple.parser.JSONParser;
 import org.jose4j.json.internal.json_simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
-import ai.aitia.sos_ngac.common.PolicyOpTable;
-import ai.aitia.sos_ngac.common.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.PolicyResponseDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyOpTable;
+import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
 import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
 import static java.util.stream.Collectors.joining;
