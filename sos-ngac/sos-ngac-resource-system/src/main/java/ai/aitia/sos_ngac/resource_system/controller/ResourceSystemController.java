@@ -35,7 +35,7 @@ public class ResourceSystemController {
 	@PostMapping(value = ResourceSystemConstants.REQUEST_RESOURCE_URI)
 	@ResponseBody
 	public PolicyResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception {
-		rap.connect();
+		rap.access(dto);
 		return pep.queryPolicyServer(dto);
 	} 
 }

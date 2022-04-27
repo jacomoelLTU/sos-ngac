@@ -91,7 +91,7 @@ public class PolicyEnforcementPoint {
     	// Generate a PolicyRequestDTO from the given ResourceRequestDTO
     	final PolicyRequestDTO policyRequestDTO;
     	
-    	if (requestDTO.conditionIsSet()) {
+    	if (requestDTO.getCondition() != null) {
     		policyRequestDTO = new PolicyRequestDTO(CONDITIONAL_ACCESS_QUERY, new String[] {
     				requestDTO.getUser(),
     				requestDTO.getOperation(),

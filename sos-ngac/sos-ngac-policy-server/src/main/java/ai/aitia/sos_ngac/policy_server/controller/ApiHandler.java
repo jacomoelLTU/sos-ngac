@@ -77,7 +77,7 @@ public class ApiHandler {
                 .map(e -> e.getKey() + e.getValue())
                 .collect(joining("&"));
 		URL url = new URL(PolicyServerConstants.NGAC_SERVER_ADDRESS + serverApi + op + params);
-		System.out.println("Generated URL: "+ url);
+		//System.out.println("Generated URL: "+ url); // Debug
 		return url;
  	}
 	
@@ -100,7 +100,6 @@ public class ApiHandler {
 		 scanner.close();
 		 JSONParser parse = new JSONParser();
 		 JSONObject response = (JSONObject) parse.parse(inline);
-		 System.out.println("RESPONSE: " + response);
 		 return response;
 	}
 	

@@ -6,6 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 import eu.arrowhead.common.CommonConstants;
 
+/*
+ * Main class for the policy server
+ */
+
 @SpringBootApplication
 @ComponentScan(basePackages = {CommonConstants.BASE_PACKAGE, PolicyServerConstants.BASE_PACKAGE})
 public class PolicyServerMain {

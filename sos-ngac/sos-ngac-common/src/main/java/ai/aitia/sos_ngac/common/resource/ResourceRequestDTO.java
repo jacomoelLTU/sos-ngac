@@ -10,26 +10,27 @@ public class ResourceRequestDTO implements Serializable {
 	private String user;
 	private String operation;
 	private String object;
+	private String value; // Value to write in case or write operation
 	private String condition;
-	private boolean conditionSet = false;
 	
 	// Default constructor for spring boot mapping
 	public ResourceRequestDTO() {}
 	
 	// Constructor for non-conditional request
-	public ResourceRequestDTO(String user, String operation, String object) {
+	public ResourceRequestDTO(String user, String operation, String object, String value) {
 		this.user = user;
 		this.operation = operation;
 		this.object = object;
+		this.value = value;
 	}
 	
 	// Constructor for conditional request
-	public ResourceRequestDTO(String user, String operation, String object, String condition) {
+	public ResourceRequestDTO(String user, String operation, String object, String value, String condition) {
 		this.user = user;
 		this.operation = operation;
 		this.object = object;
+		this.value = value;
 		this.condition = condition;
-		conditionSet = true;
 	}
 	
 	public String getUser() {
@@ -43,12 +44,13 @@ public class ResourceRequestDTO implements Serializable {
 	public String getObject() {
 		return object;
 	}
+	
+	public String getValue() {
+		return value;
+	}
 
 	public String getCondition() {
 		return condition;
 	}
-	
-	public boolean conditionIsSet() {
-		return conditionSet;
-	}
+
 }
