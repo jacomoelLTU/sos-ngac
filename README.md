@@ -16,8 +16,6 @@ The project has the following dependencies:
   
   ***By Swagger API documentation***
   
-  - Go to `http(s)://<authorization_host>:<authorization_port>`.
-  - Create the authorization rule via the [`POST /authorization/mgmt/intracloud`](https://github.com/eclipse-arrowhead/core-java-spring/blob/master/README.md#add-intracloud-rules) or [`POST /authorization/mgmt/intercloud`](https://github.com/eclipse-arrowhead/core-java-spring/blob/master/README.md#add-intercloud-rules) endpoint.
   - [Click here](#authorizationsettings) for a detailed description on Swagger API management for this project. 
   
   ***By MySQL queries***
@@ -36,6 +34,8 @@ The project has the following dependencies:
 
 ## Setup guide
 
+### Launching the arrowhead core systems
+
 <a name="ngacserver" />
 
 ### Setting up the ngac server
@@ -43,3 +43,5 @@ The project has the following dependencies:
 <a name="authorizationsettings" />
 
 ### Authorization settings
+
+### Running the project
