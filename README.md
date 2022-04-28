@@ -1,7 +1,7 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-This is a System of Systems implementation of Next Generation Access Control in the Eclipse Arrowhead framework. TBC...
+A System of Systems implementation of Next Generation Access Control in the Eclipse Arrowhead framework. TBC...
 
 ### Requirements
 
