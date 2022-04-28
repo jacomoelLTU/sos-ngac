@@ -29,17 +29,21 @@ public class ResourceAccessPoint {
 
 	/*
 	 * Entry function for the resource access point. Takes a resource request DTO
-	 * sent from a consumer and returns a generated resource responseDTO based on
-	 * the request operation
+	 * sent from a consumer and returns the resource system response
 	 */
-	// TODO: Change return type
-	public void access(ResourceRequestDTO requestDTO) {
+	public String[] access(ResourceRequestDTO requestDTO) {
 
 		// Connect to database
 		InfluxDB influxDB = connect();
 		
-		handleRequest(influxDB, requestDTO);
+		// Handle the request and return server response
+		return handleRequest(influxDB, requestDTO);
 	}
+	
+	
+	
+	
+	/* ---------------------------- Assistant methods --------------------------------- */
 
 	// Connect to influxDB and return database instance
 	private InfluxDB connect() {
@@ -56,20 +60,21 @@ public class ResourceAccessPoint {
 	}
 
 	// Handle the request by evaluating the DTO and querying the database
-	private void handleRequest(InfluxDB influxDB, ResourceRequestDTO dto) {
+	private String[] handleRequest(InfluxDB influxDB, ResourceRequestDTO dto) {
 		switch (dto.getOperation()) {
 		case RAPConstants.READ_OPERATION:
 			if (dto.getCondition() != null) {
-				// TODO: Implement conditional read
+				String[] filteredCondition = filterCondition(dto.getCondition());
+				String queryString = queryStringBuilder.userReadConditional(dto.getObject(), filteredCondition);
+				return sendSelectQuery(influxDB, queryString);
 			} else {
-				String queryString = queryStringBuilder.userReadAll(dto.getUser(), dto.getObject());
-				sendSelectQuery(influxDB, queryString);
+				String queryString = queryStringBuilder.userReadAll(dto.getObject());
+				return sendSelectQuery(influxDB, queryString);
 			}
-			break;
 		case RAPConstants.WRITE_OPERATION:
 			/*
 			 * Time condition for write operations is irrelevant in the 
-			 * demo case where sensors write data in real-time. 
+			 * demo case where users write data in real-time. 
 			 * However, it might be relevant for other conditions and 
 			 * use cases. If so, add conditional handler inside this 
 			 * body and define the behavior accordingly.
@@ -87,20 +92,35 @@ public class ResourceAccessPoint {
 			batchPoints.point(p);
 			influxDB.write(batchPoints);
 			
-			break;
+			return new String[] {"Write successful"};
 		}
-		//throw new UnsupportedOperationException("Unsupported operation, supported: 'r', 'w'");
+		throw new UnsupportedOperationException("Unsupported operation, supported: 'r', 'w'");
 	}
 	
 	// Send select query to influx database and return the response
-	public void sendSelectQuery(InfluxDB db, String queryString) {
+	private String[] sendSelectQuery(InfluxDB db, String queryString) {
 		QueryResult queryResult = db.query(new Query(queryString, RAPConstants.DATABASE_NAME));
 		InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
-		List<SensorMeasurement> memoryPointList = resultMapper.toPOJO(queryResult, SensorMeasurement.class);
-		for (SensorMeasurement s : memoryPointList) {
-			System.out.println(s.getTime() + " " + s.getName() + " " + s.getObject() + " " + s.getValue());
+		List<SensorMeasurement> sensorPointList = resultMapper.toPOJO(queryResult, SensorMeasurement.class);
+		String[] resourceSystemResponse = new String[sensorPointList.size()];
+		for (int i = 0; i < resourceSystemResponse.length; i++) {
+			SensorMeasurement s = sensorPointList.get(i);
+			resourceSystemResponse[i] = "Entry: " + s.getTime() 
+			+ " | Source: " + s.getName() 
+			+ " | Object: " + s.getObject() 
+			+ " | Value: " + s.getValue();
 		}
-
+		return resourceSystemResponse;
+	}
+	
+	// Filters time values from time condition string 
+	public String[] filterCondition(String conditionString) {
+		String filter = (conditionString.replace("time_conditional_read(","")).replace(")", "");
+		String[] values = filter.split(",");
+		for (int i = 0; i < values.length; i++) {
+			values[i] = values[i] + RAPConstants.TO_INFLUX_TIMESTAMP_PRECISION;
+		}
+		return values;
 	}
 
 }

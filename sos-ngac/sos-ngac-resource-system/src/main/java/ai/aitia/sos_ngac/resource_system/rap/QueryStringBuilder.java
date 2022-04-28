@@ -9,25 +9,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QueryStringBuilder {
+	
+	// Query string for reading object-identified values from a user between to timestamps
+	public String userReadConditional(String object, String[] timeConditions) {
+		return userReadAll(object) + " AND time >= " + timeConditions[0] + " AND time <= " + timeConditions[1];
+	}
 
 	// Query string for reading all object-identified values from a user
-	public String userReadAll(String user, String object) {
-		return getBaseSelect() + " WHERE " + specifyUser(user) + " AND " + specifyObject(object);
+	public String userReadAll(String object) {
+		return getBaseSelect() + " WHERE " +  specifyObject(object);
 	}
-
-	// Return user specification substring
-	public String specifyUser(String user) {
-		return getUserField() + "=" + wrapString(user);
-	}
-
+	
 	// Return object specification substring
 	public String specifyObject(String object) {
 		return getObjectField() + "=" + wrapString(object);
-	}
-
-	// Get the user field of the measurement
-	public String getUserField() {
-		return RAPConstants.MEASUREMENT_USER_FIELD;
 	}
 
 	// Get the object field of the measurement

@@ -1,6 +1,10 @@
 package ai.aitia.sos_ngac.resource_system.rap;
 
 public class RAPConstants {
+	
+	// Policy operation status messages
+	public static final String POLICY_GRANTED = "grant";
+	public static final String POLICY_DENIED = "deny";
 
 	// Database configuration
 	protected static final String DATABASE_ADDRESS = "http://localhost:8086";
@@ -22,6 +26,7 @@ public class RAPConstants {
 	
 	// Miscellaneous
 	protected static final String DEFAULT_RETENTION_POLICY = "defaultPolicy";
+	protected static final String TO_INFLUX_TIMESTAMP_PRECISION = "000000";
 	
 	public RAPConstants() {
 		throw new UnsupportedOperationException();
