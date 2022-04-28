@@ -38,7 +38,7 @@ The project has the following dependencies:
 
 <a name="ngacserver" />
 
-### Setting up the ngac server
+### Setting up the NGAC server
 
 <a name="authorizationsettings" />
 
