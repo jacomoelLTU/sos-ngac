@@ -34,7 +34,7 @@ The project has the following dependencies:
 
 ## Setup guide
 
-### Launching the arrowhead core systems
+### Launching the Arrowhead core systems
 
 <a name="ngacserver" />
 
