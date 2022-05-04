@@ -44,17 +44,17 @@ The project has the following dependencies:
 
 ## Launching the Arrowhead Core Systems
 
-For the main documentation, go to the Arrowhead [Core Java Spring](https://github.com/eclipse-arrowhead/core-java-spring) repository.
+For the Arrowhead documentation, go to the [core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring) repository.
 
-A video of the setup process on a Windows system: https://www.youtube.com/watch?v=52Up5iDJKx4&ab_channel=AITIAInternationalZrt.
+A recording of the setup process on a Windows system: https://www.youtube.com/watch?v=52Up5iDJKx4&ab_channel=AITIAInternationalZrt.
 
-### Potential install issues
+### Installation issues
 
-I ran into certain issues when installing the core systems that I decided to list here in case it might be of use to anyone.
+I had some issues with installing the core systems and I decided to list them here in case it might be of use to anyone.
 
-1) The Docker setup doesn't seem to work out of the box due to a docker image issue. Me and several others have encountered the same issue but it is not yet officially fixed. See [this issue](https://github.com/eclipse-arrowhead/core-java-spring/issues/361)
-2) I had to install MySQL 5.7+ instead of the newer MySQL 8.0+ versions when doing a native install since the SQL scripts in the core java spring repository uses deprecated commands
-3) I had to change my MySQL config file to allow remote connections in order to successfully run the install scripts
+1) The docker setup doesn't seem to work out of the box due to a docker image issue. Me and several others have encountered the same issue but it is not yet officially fixed. See [this issue](https://github.com/eclipse-arrowhead/core-java-spring/issues/361)
+2) I had to install MySQL 5.7+ instead of the newer MySQL 8.0+ versions when doing a native install since the SQL scripts in the core-java-spring repository uses deprecated commands
+3) I had to allow remote connection in MySQL config in order to successfully run the Arrowhead SQL scripts
 
 
 
@@ -67,7 +67,7 @@ Download [SWI-Prolog](https://www.swi-prolog.org/Download.html) and clone the [N
 
 Follow the setup instructions in chapter 9 of the pdf documentation. For this project, we run the server in JSON mode, this is done by navigating to the root folder of the NGAC repository and running the ``./ngac-server -j`` command after the systems have been installed. 
 
-Note that there might be authorization issues related to security when running the server on a Windows system, which is why we have mostly been running the NGAC server on Linux systems.
+Note that there might be security related authorization issues when running the server on a Windows system, which is why the NGAC server has been used mainly on Linux systems.
 
 To set the demo policy for this project and run a few tests, navigate to the ``sos-ngac-demo`` folder and execute the ``demo.sh`` script.
 
@@ -77,18 +77,18 @@ Enable HTTP communication in your influxDB config file and bind the port to its 
 The DB configuration can be deduced by looking at the [Resource Access Point Constants](https://github.com/esen96/sos-ngac/blob/master/sos-ngac/sos-ngac-resource-system/src/main/java/ai/aitia/sos_ngac/resource_system/rap/RAPConstants.java).
 
 In essence: 
-* Create a root user with full priliveges and the same configuration as listed in the RAPConstants file. Alternatively, you can create a superuser with your own information, in which case you'll need to change some of the constant values. 
+* Create a root user with full privileges and the same configuration as listed in the RAPConstants file. Alternatively, you can create a superuser with your own information, in which case you'll need to change some of the constants. 
 
-* Create a database either with the same name as the one listed in the constants, or create one with another name and change the constant value.
+* Create a database either with the same name as the one listed in the constants, or create one with another name and change the constant.
 
 * The measurement used in the demo will be automatically created and populated by running the sensor in the Consumer application. 
 
 ## Running the project
 
-1) Clone this repository to run the project natively. Alternatively, you download the application executables from the latest release of this repository.
+1) Clone this repository to run the project natively. Alternatively, you can download the application executables from the latest release of this repository.
 2) Start the NGAC server in JSON response mode by running the command ``./ngac-server -j`` in the ngac root folder.
-3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and executing the ``demo.sh`` file. Check that the server returns the correct response to each test case.
-4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root folder of this reposity and download the necessary dependencies:
+3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and executing the ``demo.sh`` file. Check that the server returns the correct response for each test case.
+4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root folder of this reposity and install the necessary dependencies:
 
 ```
 mvn install
@@ -103,9 +103,9 @@ A successful installation will result in the following response:
 
 It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the ones in the video.
 
-1) Start the Arrowhead Core Systems on your machine. For this project, only the local coresystems are necessary (Service Registry, Authorization, Orchestrator). Hence, you can run the start_coresystems_local.sh script for less bloat in your database.
-2) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and the Authorization at ``https://localhost:8445``. If you have not done this before, then you may have to import the sysop.p12 certificate from the core-java-spring repository to your browser. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
-3) Run the Policy Server- and the Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
+1) Start the Arrowhead Core Systems on your machine. For this project, only the local core systems are necessary (Service Registry, Authorization, Orchestrator). Hence, you can run the start_coresystems_local.sh script for less database bloat and cpu usage.
+2) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and Authorization at ``https://localhost:8445``. If you have not done this before, you may have to import the sysop.p12 certificate from the core-java-spring repository to your browser. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
+3) Run the Policy Server- and Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
 4) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
 5) Copy the entire JSON body of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules.
 6) Register the consumer by heading to the Swagger API of the Service Registry. Under the tab ``Management``, use ``POST serviceregistry/mgmt/systems`` -> ``Try it out`` and fill in the body of the consumer:
@@ -120,7 +120,7 @@ It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHe
 Click ``Execute`` and you should get a JSON response with the full body of the consumer. Also save this data along with the data from earlier.
 
 7) Go to the Authorization Swagger API at https://localhost:8445 and go to ``Management`` -> ``POST authorization/mgmt/intracloud`` and enter two sets of authorization rules.
- * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body created earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
+ * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body JSON response saved from earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
  * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
 8) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and run your queries!
 
