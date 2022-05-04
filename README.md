@@ -103,11 +103,12 @@ A successful install will result in the following response:
 
 It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the ones in the video.
 
-1) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and the Authorization at ``https://localhost:8445``. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
-2) Run the Policy Server- and the Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
-3) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
-4) Copy the entire JSON body of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules.
-5) Register the consumer by heading to the Swagger API of the Service Registry. Under the tab ``Management``, use ``POST serviceregistry/mgmt/systems`` -> ``Try it out`` and fill in the body of the consumer:
+1) Start the Arrowhead Core Systems on your machine. For this project, only the local coresystems are necessary (Service Registry, Authorization, Orchestrator). Hence, you can run the start_coresystems_local.sh script for less bloat in your database.
+2) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and the Authorization at ``https://localhost:8445``. If you have not done this before, then you may have to import the sysop.p12 certificate from the core-java-spring repository to your browser. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
+3) Run the Policy Server- and the Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
+4) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
+5) Copy the entire JSON body of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules.
+6) Register the consumer by heading to the Swagger API of the Service Registry. Under the tab ``Management``, use ``POST serviceregistry/mgmt/systems`` -> ``Try it out`` and fill in the body of the consumer:
 
 ```
 {
