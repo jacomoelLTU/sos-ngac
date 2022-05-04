@@ -122,6 +122,6 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
 6) Go to the Authorization Swagger API at https://localhost:8445 and go to ``Management`` -> ``POST authorization/mgmt/intracloud`` and enter two sets of authorization rules.
  * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body created earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
  * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
-7) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and execute your queries!
+7) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and run your queries!
 
 
