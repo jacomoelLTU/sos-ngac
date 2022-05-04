@@ -77,19 +77,14 @@ public class ConsumerMain implements ApplicationRunner {
 	// Automated sensor function. Generates and writes data every second
 	public void startSensor() throws Exception {
 		OrchestrationResultDTO orchestrationResult = orchestrate();
+		printOut(orchestrationResult);
 		System.out.println("Sensor activated. Outputting values...");
 		while(true) {
 			Thread.sleep(1000);
 			String value = String.valueOf(100.00 + Math.random() * (1.00 - 100.00));
 			final ResourceRequestDTO dto = new ResourceRequestDTO("Sensor", "w", "SensorData", value);
-
-			final String token = orchestrationResult.getAuthorizationTokens() == null ? null
-					: orchestrationResult.getAuthorizationTokens().get(getInterface());
-
-			arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class,
-					HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
-					orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(),
-					orchestrationResult.getServiceUri(), getInterface(), token, dto, new String[0]);
+			
+			requestResource(orchestrationResult, dto);
 		}
 	}
 	

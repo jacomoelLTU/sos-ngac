@@ -10,8 +10,7 @@ public class RAPConstants {
 	protected static final String DATABASE_ADDRESS = "http://localhost:8086";
 	protected static final String ROOT_USERNAME = "root";
 	protected static final String ROOT_PASSWORD = "root";
-	//protected static final String DATABASE_NAME = "sos_ngac_demo";
-	protected static final String DATABASE_NAME = "test"; // TODO: remove
+	protected static final String DATABASE_NAME = "sos_ngac_demo";
 	protected static final String DATABASE_MEASUREMENT = "sensordata";
 	
 	// NGAC operation identifiers
