@@ -5,6 +5,9 @@ A System of Systems implementation of NGAC in the Eclipse Arrowhead framework. I
 
 ![SoS NGAC UML Component Diagram](doc/SystemsHolistic.png?raw=true "SoS NGAC UML Component Diagram")
 
+### Policy used in the demo
+
+<img src="doc/Policy.png" width="930">
 
 
 ### Requirements
@@ -62,26 +65,14 @@ I ran into certain issues when installing the core systems that I decided to lis
 
 Download [SWI-Prolog](https://www.swi-prolog.org/Download.html) and clone the [NGAC Policy Machine](https://github.com/esen96/tog-ngac-crosscpp-LTU).
 
-Navigate to the root directory and run the following commands:
-
-```
-swipl -v -o ngac-server -g ngac-srver -c ngac.pl
-````
-
-```
-[mkngac].
-````
-
-```
-./ngac-server -j
-````
+Follow the setup instructions in chapter 9 of the pdf documentation. For this project, we run the server in JSON mode, this is done by navigating to the root folder of the NGAC repository and running the ``./ngac-server -j`` command after the systems have been installed. 
 
 Note that there might be authorization issues related to security when running the server on a Windows system, which is why we have mostly been running the NGAC server on Linux systems.
 
 To set the demo policy for this project and run a few tests, navigate to the ``sos-ngac-demo`` folder and execute the ``demo.sh`` script.
 
 ## InfluxDB configuration
-The DB configuration can be deduced by looking at the Resource Access Point Constants: ``sos-ngac/sos-ngac/sos-ngac-resource-system/src/main/java/ai/aitia/sos_ngac/resource_system/rap/RAPConstants.java``.
+The DB configuration can be deduced by looking at the [Resource Access Point Constants](https://github.com/esen96/sos-ngac/blob/master/sos-ngac/sos-ngac-resource-system/src/main/java/ai/aitia/sos_ngac/resource_system/rap/RAPConstants.java).
 
 In essence: 
 * Create a root user with full priliveges, either with the same configuration as listed in the RAPConstants file, or with your own information, in which case you'll need to change some of the constant values. 
@@ -93,14 +84,16 @@ In essence:
 ## Running the project
 
 1) Clone this repository
-2) Navigate to the root foolder of this reposity and run the command:
+2) Start the NGAC server in JSON response mode
+3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and running the ``demo.sh`` file. Ensure that the test cases are giving the correct responses 
+4) Navigate to the root foolder of this reposity and run the command:
 
 ```
 mvn install
 ```
 A successful install will result in the following response:
 
-INSERT MVN INSTALL IMAGE
+![mvn install image](doc/mvninstall.png?raw=true "mvn install")
 
 <a name="authorizationsettings" />
 
@@ -109,9 +102,23 @@ INSERT MVN INSTALL IMAGE
 It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the one in the video.
 
 1) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and the Authorization at ``https://localhost:8445``. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
-2) Start the Policy Server- and the Resource System providers. These providers automatically register their services in the Service Registry core system. 
-3) Go to the Swagger API of the Service Registry and click on ``ServiceRegistry/mgmt/GET`` and copy the JSON data for 
+2) Run the Policy Server- and the Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
+3) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
+4) Copy the entire JSON data body from the of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules
+5) Register the consumer by heading to the Swagger API of the Service Registry. Under the tab ``Management``, use ``POST serviceregistry/mgmt/systems`` -> ``Try it out`` and fill in the body of the consumer:
 
+```
+{
+  "address": "localhost",
+  "port": 8080,
+  "systemName": "resourceconsumer"
+}
+```
+Click ``Execute`` and you should get a JSON response with the full body of the consumer. Also save this data along with the data from earlier.
 
+6) Go to the Authorization Swagger API at https://localhost:8445 and go to ``Management`` -> ``POST authorization/mgmt/intracloud`` and enter two sets of authorization rules.
+ * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body created earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
+ * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
+7) You should now be able to run the consumer
 
 
