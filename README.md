@@ -46,7 +46,7 @@ The project has the following dependencies:
 
 For the main documentation, go to the Arrowhead [Core Java Spring](https://github.com/eclipse-arrowhead/core-java-spring) repository.
 
-Here is also a video of the setup process on a Windows system: https://www.youtube.com/watch?v=52Up5iDJKx4&ab_channel=AITIAInternationalZrt.
+A video of the setup process on a Windows system: https://www.youtube.com/watch?v=52Up5iDJKx4&ab_channel=AITIAInternationalZrt.
 
 ### Potential install issues
 
