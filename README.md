@@ -52,8 +52,8 @@ Here is also a video of the setup process on a Windows system: https://www.youtu
 
 I ran into certain issues when installing the core systems that I decided to list here in case it might be of use to anyone.
 
-1) The Docker setup doesn't seem to work out of the box due to a docker image issue. Me and several others have encountered the same issue but it is yet to be fixed. See [this issue](https://github.com/eclipse-arrowhead/core-java-spring/issues/361)
-2) I had to install MySQL 5.7+ instead of the newer MySQL 8.0+ versions when doing a native install since the SQL scripts in the core java spring repository utilizes deprecated commands
+1) The Docker setup doesn't seem to work out of the box due to a docker image issue. Me and several others have encountered the same issue but it is not yet officially fixed. See [this issue](https://github.com/eclipse-arrowhead/core-java-spring/issues/361)
+2) I had to install MySQL 5.7+ instead of the newer MySQL 8.0+ versions when doing a native install since the SQL scripts in the core java spring repository uses deprecated commands
 3) I had to change my MySQL config file to allow remote connections in order to successfully run the install scripts
 
 
@@ -81,14 +81,14 @@ In essence:
 
 * Create a database either with the same name as the one listed in the constants, or create one with another name and change the constant value.
 
-* The measurement used in the demo will be automatically created and populated by running the sensor function in the Consumer system. 
+* The measurement used in the demo will be automatically created and populated by running the sensor in the Consumer application. 
 
 ## Running the project
 
-1) Clone this repository
-2) Start the NGAC server in JSON response mode
-3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and running the ``demo.sh`` file. Ensure that the test cases are giving the correct responses 
-4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root foolder of this reposity and run the command:
+1) Clone this repository to run the project natively. Alternatively, you download the application executables from the latest release of this repository.
+2) Start the NGAC server in JSON response mode by running the command ``./ngac-server -j`` in the ngac root folder.
+3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and executing the ``demo.sh`` file. Check that the server returns the correct response to each test case.
+4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root foolder of this reposity and download the necessary dependencies:
 
 ```
 mvn install
@@ -101,12 +101,12 @@ A successful install will result in the following response:
 
 ## Authorization settings
 
-It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the one in the video.
+It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the ones in the video.
 
 1) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and the Authorization at ``https://localhost:8445``. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
 2) Run the Policy Server- and the Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
 3) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
-4) Copy the entire JSON data body from the of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules
+4) Copy the entire JSON body of the ``query-interface`` service by the ``policyserver`` provider and the ``request-resource`` service of the ``resourcesystem`` provider. Save this information somewhere like a temporary .txt file as you will need it for setting the authorization rules.
 5) Register the consumer by heading to the Swagger API of the Service Registry. Under the tab ``Management``, use ``POST serviceregistry/mgmt/systems`` -> ``Try it out`` and fill in the body of the consumer:
 
 ```
