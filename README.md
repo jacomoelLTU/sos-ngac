@@ -1,7 +1,7 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-A System of Systems implementation of NGAC in the Eclipse Arrowhead framework. In the demo, the consumer sends a request to access (read/write) a data object in a time series database, and is given permission only if the corresponding policy is set in the NGAC server.
+A System of Systems implementation of NGAC in the Eclipse Arrowhead Framework. In the demo, a consumer sends requests to access (read/write) a data object in a time series database, and is given permission only if the corresponding policy is set in the NGAC server.
 
 ![SoS NGAC UML Component Diagram](doc/SystemsHolistic.png?raw=true "SoS NGAC UML Component Diagram")
 
@@ -72,10 +72,12 @@ Note that there might be authorization issues related to security when running t
 To set the demo policy for this project and run a few tests, navigate to the ``sos-ngac-demo`` folder and execute the ``demo.sh`` script.
 
 ## InfluxDB configuration
+Enable HTTP communication in your influxDB config file and bind the port to its original address, leave the standard time formatting as is.
+
 The DB configuration can be deduced by looking at the [Resource Access Point Constants](https://github.com/esen96/sos-ngac/blob/master/sos-ngac/sos-ngac-resource-system/src/main/java/ai/aitia/sos_ngac/resource_system/rap/RAPConstants.java).
 
 In essence: 
-* Create a root user with full priliveges, either with the same configuration as listed in the RAPConstants file, or with your own information, in which case you'll need to change some of the constant values. 
+* Create a root user with full priliveges and the same configuration as listed in the RAPConstants file. Alternatively, you can create a superuser with your own information, in which case you'll need to change some of the constant values. 
 
 * Create a database either with the same name as the one listed in the constants, or create one with another name and change the constant value.
 
@@ -86,7 +88,7 @@ In essence:
 1) Clone this repository
 2) Start the NGAC server in JSON response mode
 3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and running the ``demo.sh`` file. Ensure that the test cases are giving the correct responses 
-4) Navigate to the root foolder of this reposity and run the command:
+4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root foolder of this reposity and run the command:
 
 ```
 mvn install
@@ -119,6 +121,6 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
 6) Go to the Authorization Swagger API at https://localhost:8445 and go to ``Management`` -> ``POST authorization/mgmt/intracloud`` and enter two sets of authorization rules.
  * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body created earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
  * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
-7) You should now be able to run the consumer
+7) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and execute your queries!
 
 
