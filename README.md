@@ -54,7 +54,7 @@ I had some issues with installing the core systems and I decided to list them he
 
 1) The docker setup doesn't seem to work out of the box due to a docker image issue. Me and several others have encountered the same issue but it is not yet officially fixed. See [this issue](https://github.com/eclipse-arrowhead/core-java-spring/issues/361)
 2) I had to install MySQL 5.7+ instead of the newer MySQL 8.0+ versions when doing a native install since the SQL scripts in the core-java-spring repository uses deprecated commands
-3) I had to allow remote connection in MySQL config in order to successfully run the Arrowhead SQL scripts
+3) I had to allow remote connection in MySQL config to successfully run the Arrowhead SQL scripts
 
 
 
@@ -122,6 +122,7 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
 7) Go to the Authorization Swagger API at https://localhost:8445 and go to ``Management`` -> ``POST authorization/mgmt/intracloud`` and enter two sets of authorization rules.
  * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body JSON response saved from earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
  * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
-8) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and run your queries!
+8) Restart the resource system application
+9) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and run your queries!
 
 
