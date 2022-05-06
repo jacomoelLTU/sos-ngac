@@ -13,7 +13,7 @@ import org.influxdb.impl.InfluxDBResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ai.aitia.sos_ngac.resource_system.pep.ResourceRequestDTO;
+import ai.aitia.sos_ngac.common.resource.ResourceRequestDTO;
 
 
 /* 

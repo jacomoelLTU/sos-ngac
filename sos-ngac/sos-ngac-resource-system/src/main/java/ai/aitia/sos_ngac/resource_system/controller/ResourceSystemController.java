@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ai.aitia.sos_ngac.common.resource.ResourceRequestDTO;
 import ai.aitia.sos_ngac.common.resource.ResourceResponseDTO;
 import ai.aitia.sos_ngac.resource_system.ResourceSystemConstants;
 import ai.aitia.sos_ngac.resource_system.pep.PolicyEnforcementPoint;
 import ai.aitia.sos_ngac.resource_system.pep.PolicyResponseDTO;
-import ai.aitia.sos_ngac.resource_system.pep.ResourceRequestDTO;
 import ai.aitia.sos_ngac.resource_system.rap.RAPConstants;
 import ai.aitia.sos_ngac.resource_system.rap.ResourceAccessPoint;
 
@@ -35,8 +35,14 @@ public class ResourceSystemController {
 	// Mapping function for resource request service
 	@PostMapping(value = ResourceSystemConstants.REQUEST_RESOURCE_URI)
 	@ResponseBody
-	public ResourceResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception {
-		PolicyResponseDTO serverResponse = pep.queryPolicyServer(dto);
+	public ResourceResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception 
+	{
+		PolicyResponseDTO serverResponse;
+		if (dto.getCondition() == null) {
+			serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject());
+		} else {
+			serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject(), dto.getCondition());
+		}
 		if (serverResponse.getRespMessage().equals(RAPConstants.POLICY_GRANTED)) {
 			String[] resourceSystemResponse = rap.access(dto);
 			return new ResourceResponseDTO(
