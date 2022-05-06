@@ -86,8 +86,8 @@ In essence:
 ## Running the project
 
 1) Clone this repository to run the project natively. Alternatively, you can download the application executables from the latest release of this repository.
-2) Start the NGAC server in JSON response mode by running the command ``./ngac-server -j`` in the ngac root folder.
-3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder and executing the ``demo.sh`` file. Check that the server returns the correct response for each test case.
+2) Start the NGAC server in JSON response mode by running the command ``./ngac-server -j`` in the [TOG PM project](https://github.com/esen96/tog-ngac-crosscpp-LTU)  root folder.
+3) Load and set the correct policy file by navigating to the ``sos-ngac-demo`` folder inside the [TOG PM project](https://github.com/esen96/tog-ngac-crosscpp-LTU)  root folder. Run the ``demo.sh`` file and confirm that the server returns the correct response for each test case.
 4) If you're using the application executables in the provided release, then the following step is not necessary. However, if you plan on running this project natively, then navigate to the root folder of this reposity and install the necessary dependencies:
 
 ```
