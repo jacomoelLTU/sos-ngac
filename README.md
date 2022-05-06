@@ -103,7 +103,7 @@ A successful installation will result in the following response:
 
 It might be helpful to look at [this video](https://www.youtube.com/watch?v=9BHemnv3mQA&ab_channel=AITIAInternationalZrt.) for a demonstration of how a sample system is run. The steps for this project will be very similar to the ones in the video. Note that the authorization setup is only required when starting the system for the first time. 
 
-1) Start the Arrowhead Core Systems on your machine. For this project, only the local core systems are necessary (Service Registry, Authorization, Orchestrator). Hence, you can run the start_coresystems_local.sh script for less database bloat and cpu usage.
+1) Start the Arrowhead Core Systems on your machine. For this project, only the local core systems are necessary (Service Registry, Authorization, Orchestrator). Hence, you can run the start_coresystems_local.sh script for less bloat when using the Swagger API:s and reduced cpu usage.
 2) Make sure you have access to the Swagger API:s of the Service Registry at ``https://localhost:8443``, and Authorization at ``https://localhost:8445``. If you have not done this before, you may have to import the sysop.p12 certificate from the core-java-spring repository to your browser. See the video or [the documentation](https://github.com/eclipse-arrowhead/core-java-spring) for instructions.
 3) Run the Policy Server- and Resource System provider applications. These providers automatically register their services in the Service Registry core system. 
 4) Go to the Swagger API of the Service Registry, open the ``Management`` tab and call ``GET serviceregistry/mgmt`` -> ``Try it out`` -> ``Execute``. 
