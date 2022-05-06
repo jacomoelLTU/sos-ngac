@@ -123,6 +123,6 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
  * Consumer -> Resource System: Fill the ``consumerID`` field with the ID from the resourceconsumer body JSON response saved from earlier. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``request-resource`` service system definition of the ``resourcesystem`` provider that we saved from earlier
  * Resource System -> Policy Server: Fill the ``consumerID`` field with the ID from the ``resourcesystem`` provider ID. Enter the ``interfaceID``, ``providerID``, and ``serviceDefinitionID`` of the ``query-interface`` service system definition of the ``policyserver`` provider that we saved from earlier
 8) Restart the resource system application
-9) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and run your queries!
+9) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and send your queries!
 
 
