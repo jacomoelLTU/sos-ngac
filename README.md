@@ -1,7 +1,7 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-A System of Systems implementation of NGAC in the Eclipse Arrowhead Framework. In the demo, a consumer sends requests to access (read/write) a data object in a time series database, and is given permission only if the corresponding policy is set in the NGAC server.
+A System of Systems implementation of NGAC using Eclipse Arrowhead. In the demo, a consumer sends requests to access (read/write) a data object in a time series database, and is given permission only if the corresponding policy is set in the NGAC server.
 
 ![SoS NGAC UML Component Diagram](doc/SystemsHolistic.png?raw=true "SoS NGAC UML Component Diagram")
 
