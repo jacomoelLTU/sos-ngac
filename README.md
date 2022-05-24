@@ -3,11 +3,11 @@
 ## Description
 A System of Systems implementation of NGAC using Eclipse Arrowhead. In the demo, a consumer sends requests to access (read/write) a data object in a time series database, and is given permission only if the corresponding policy is set in the NGAC server.
 
-![SoS NGAC UML Component Diagram](doc/SystemsHolistic.png?raw=true "SoS NGAC UML Component Diagram")
+![SoS NGAC UML Component Diagram](doc/SystemsHolistic2.png?raw=true "SoS NGAC UML Component Diagram")
 
 ### Policy used in the demo
 
-<img src="doc/Policy.png" width="930">
+<img src="doc/Policy.png">
 
 
 ### Requirements
