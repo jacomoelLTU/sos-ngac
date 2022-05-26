@@ -93,9 +93,6 @@ In essence:
 ```
 mvn install
 ```
-A successful installation will result in the following response:
-
-![mvn install image](doc/mvninstall.png?raw=true "mvn install")
 
 <a name="authorizationsettings" />
 
