@@ -3,7 +3,7 @@
 ## Description
 A resource SoS using NGAC with Eclipse Arrowhead. In the demo, a consumer sends requests to access (read/write) data in a time series database, and is given permission only if the corresponding policy is set in the Policy Machine.
 
-![SoS NGAC UML Component Diagram](doc/SystemsHolistic2.png?raw=true "SoS NGAC UML Component Diagram")
+![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
 
 ### Policy used in the demo
 
