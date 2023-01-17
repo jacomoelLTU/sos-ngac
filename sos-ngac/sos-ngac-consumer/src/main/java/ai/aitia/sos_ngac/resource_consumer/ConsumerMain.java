@@ -56,8 +56,8 @@ public class ConsumerMain implements ApplicationRunner {
 	public void run(final ApplicationArguments args) throws Exception {
 		Scanner scanner = new Scanner(System.in);  // Start command line
 		
-	    System.out.println("Choose to start sensor(s) or run resource requests(c): ");
-	    System.out.println("Enter option: (s/c) >");
+	    System.out.println("Choose to start sensor(s) or run resource requests(c) or add a new sensor (a): ");
+	    System.out.println("Enter option: (s/c/a) >");
 	    String option = scanner.nextLine();
 	    
 	    if (option.equals("c")) {
@@ -68,10 +68,38 @@ public class ConsumerMain implements ApplicationRunner {
 	    	scanner.close();
 	    	startSensor();
 	    }
+		//Added alternative a as an option. 2023-jan-16
+		else if (option.equals("a")) {
+	    	addSensor(scanner);
+	    }
+
 	    else {
 	    	System.out.println("Invalid command");
 	    }
 	    scanner.close();
+	}
+	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
+	public void addSensor(Scanner scanner) {
+		System.out.println("Please enter the sensor type [temp, thermostat, camera]..."); //Maybe this could be a drop down menu instead
+		String type = scanner.nextLine();
+		if(type.equals("temp") || type.equals("thermostat")){
+			
+			//This is were we need logic
+		
+		}
+		else{
+			System.out.println("Sensor not supported...");
+		}
+		System.out.println("Please enter the sensor location [zoneA, ZoneB]..."); //Maybe this could be a drop down menu instead
+		String location = scanner.nextLine();
+		if(location.equals("zoneA") || location.equals("zoneB")){
+		
+			//This is were we need logic
+
+		}
+		else{
+			System.out.println("Zone does not exist...\n");
+		}
 	}
 	
 	// Automated sensor function. Generates and writes data every second
