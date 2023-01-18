@@ -1,6 +1,7 @@
 package ai.aitia.sos_ngac.resource_consumer;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,10 +81,17 @@ public class ConsumerMain implements ApplicationRunner {
 	}
 	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
 	public void addSensor(Scanner scanner) {
+		int sizeObject= 2; //The amout of attributes in a base object. 
+		
+		ArrayList<String[]> objectList = new ArrayList<String[]>(); //List with lists of attributes
+		
+		String [] objectAttributes = new String[sizeObject]; //2 slots not 3
+		
 		System.out.println("Please enter the sensor type [temp, thermostat, camera]..."); //Maybe this could be a drop down menu instead
 		String type = scanner.nextLine();
 		if(type.equals("temp") || type.equals("thermostat")){
-			
+			objectAttributes[0] = type;
+
 			//This is were we need logic
 		
 		}
@@ -93,13 +101,18 @@ public class ConsumerMain implements ApplicationRunner {
 		System.out.println("Please enter the sensor location [zoneA, ZoneB]..."); //Maybe this could be a drop down menu instead
 		String location = scanner.nextLine();
 		if(location.equals("zoneA") || location.equals("zoneB")){
-		
+			objectAttributes[1] = location;
 			//This is were we need logic
 
 		}
 		else{
 			System.out.println("Zone does not exist...\n");
 		}
+		//Just a part of testing -----------
+		System.out.println("The list:");
+		objectList.add(objectAttributes);
+		System.out.println(objectList.get(0)[0] + " " + objectList.get(0)[1]);
+		// ---------------------------------
 	}
 	
 	// Automated sensor function. Generates and writes data every second
