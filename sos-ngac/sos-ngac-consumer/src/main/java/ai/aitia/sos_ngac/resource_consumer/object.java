@@ -8,9 +8,9 @@ public class object {
     private String location;
 
     //Constructor that creates object with type and name. 
-    public object(String type, String location){
+    public object(String type, String name, String location){
         this.type     = type;
-       //this.name     = name;
+        this.name     = name;
         this.location = location;
         
     }
@@ -24,6 +24,8 @@ public class object {
     public void setLocation(String location){
         this.location = location;
     }
+
+    
     public String getType(){
         return this.type;
     }

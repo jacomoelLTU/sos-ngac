@@ -2,6 +2,8 @@ package ai.aitia.sos_ngac.resource_consumer;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.regex.Matcher; 
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -88,27 +90,45 @@ public class ConsumerMain implements ApplicationRunner {
 		String type = scanner.nextLine();
 		if(type.equals("temp") || type.equals("thermostat")){
 			
-			//This is were we need logic
-		
+			//Room for more implementation
+			
 		}
 		else{
 			System.out.println("Sensor not supported...");
 		}
+		System.out.println("Please enter the sensor name..."); //Maybe this could be a drop down menu instead
+		String name = scanner.nextLine();
+		if(name.length() < 20){
+			Pattern my_pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+			Matcher my_match = my_pattern.matcher(name);
+			boolean check = my_match.find();
+			if(check){
+				System.out.println("Name is not allowed special chars...");
+				return;
+			}
+			else{
+				System.out.println("Name is invalid...\n");
+			}
+			
+			//Room for more implementation
+
+		}
 		System.out.println("Please enter the sensor location [zoneA, ZoneB]..."); //Maybe this could be a drop down menu instead
 		String location = scanner.nextLine();
 		if(location.equals("zoneA") || location.equals("zoneB")){
-			//This is were we need logic
+			
+			//Room for more implementation
 
 		}
 		else{
 			System.out.println("Zone does not exist...\n");
 		}
-		object newObject = new object(type, location);
+		object newObject = new object(type, name, location);
 
 		//Just a part of testing -----------
 		System.out.println("The list:");
 		objectList.add(newObject);
-		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getLocation());
+		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName());
 		// ---------------------------------
 	}
 	
