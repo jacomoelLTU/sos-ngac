@@ -106,13 +106,16 @@ public class ConsumerMain implements ApplicationRunner {
 				System.out.println("Name is not allowed special chars...");
 				return;
 			}
+		}
+
+		//Room for more implementation
+
 		else{
 			System.out.println("Name is invalid...\n");
 		}
 			
-			//Room for more implementation
-
-		}
+			
+		
 		System.out.println("Please enter the sensor location [zoneA, ZoneB]..."); //Maybe this could be a drop down menu instead
 		String location = scanner.nextLine();
 		if(location.equals("zoneA") || location.equals("zoneB")){
