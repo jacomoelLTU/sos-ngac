@@ -33,6 +33,11 @@ import eu.arrowhead.common.dto.shared.ServiceInterfaceResponseDTO;
 import eu.arrowhead.common.dto.shared.ServiceQueryFormDTO;
 import eu.arrowhead.common.exception.InvalidParameterException;
 
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 /* 
  * Consumer main class which defines all consumer behavior
@@ -133,6 +138,38 @@ public class ConsumerMain implements ApplicationRunner {
 		objectList.add(newObject);
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
+		
+		System.out.println("--------Should run after this---------");
+				
+		//establish connection
+		//might be a different url, not sure if it's this function we want from swagger    
+		URL mysqlurl = new URL("https://localhost:8443/serviceregistry/mgmt");
+		HttpURLConnection connection = (HttpURLConnection) mysqlurl.openConnection();
+		System.out.println("Connection established");
+	
+		//set request method "POST"
+		connection.setRequestMethod("POST");
+		System.out.println("1");
+		connection.setRequestProperty("accept", "applicaton/json");
+		System.out.println("2");
+		connection.setRequestProperty("Content-Type", "application/json");
+		System.out.println("3");
+		System.out.println("POST request");
+
+		//query for mysql
+		String query = "INSERT INTO service_registry" + "VALUES ("objectList.get(0).getType()", service_id, system_id, service_uri, end_of_validity, secure, metadata, version, created_at, updated_at)";
+		System.out.println("4");
+		connection.setDoOutput(true);
+		System.out.println("5");
+		OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+		System.out.println("6");
+		writer.write(query);
+		writer.flush();
+		writer.close();
+		connection.getOutputStream().close();
+		System.out.println("7");
+		
+		
 	}
 	
 	// Automated sensor function. Generates and writes data every second
