@@ -129,7 +129,7 @@ public class ConsumerMain implements ApplicationRunner {
 		object newObject = new object(type, name, location);
 
 		//Just a part of testing -----------
-		System.out.println("The list:");
+		System.out.println("The newObject attributes:");
 		objectList.add(newObject);
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
