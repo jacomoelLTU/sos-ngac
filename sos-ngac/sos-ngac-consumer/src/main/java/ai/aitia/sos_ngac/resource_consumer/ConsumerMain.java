@@ -106,9 +106,9 @@ public class ConsumerMain implements ApplicationRunner {
 				System.out.println("Name is not allowed special chars...");
 				return;
 			}
-			else{
-				System.out.println("Name is invalid...\n");
-			}
+		else{
+			System.out.println("Name is invalid...\n");
+		}
 			
 			//Room for more implementation
 
@@ -128,7 +128,7 @@ public class ConsumerMain implements ApplicationRunner {
 		//Just a part of testing -----------
 		System.out.println("The list:");
 		objectList.add(newObject);
-		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName());
+		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
 	}
 	
