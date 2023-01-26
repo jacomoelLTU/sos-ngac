@@ -1,4 +1,4 @@
-package ai.aitia.sos_ngac.resource_consumer;
+/*package ai.aitia.sos_ngac.resource_consumer;
 
 
 import java.sql.*;
