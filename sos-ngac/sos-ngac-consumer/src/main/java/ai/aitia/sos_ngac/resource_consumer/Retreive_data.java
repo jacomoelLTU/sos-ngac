@@ -57,4 +57,4 @@ public class JavaMysqlSelect{
         System.err.println("Got an exception! ");
         System.err.println(e.getMessage());
     
-    }
+    }*/
