@@ -58,7 +58,7 @@ public class JavaMysqlSelect{
         System.err.println(e.getMessage());
     
     }*/ //This is connection via JDBC API this other one does the same thing but via RESTful API
- package ai.aitia.sos_ngac.resource_consumer;
+package ai.aitia.sos_ngac.resource_consumer;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
