@@ -67,26 +67,49 @@ import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * JavaRestSelect is a simple Java REST client that sends a GET request to a specified URL
+ * and retrieves the response in JSON format. The response is then parsed and each JSON object
+ * within the array is extracted and its values are printed.
+ */
 public class JavaRestSelect {
+
+    /**
+     * The main method that contains the logic to send a GET request to the specified URL and process the response.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         try {
+            // Create an instance of the URL class with the specified URL string
             URL url = new URL("https://localhost:8443/serviceregistry/mgmt/sensor");
+            // Open a connection to the URL and retrieve an HttpURLConnection instance
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            // Set the request method to "GET"
             conn.setRequestMethod("GET");
 
+            // Get the response code from the server
             int responseCode = conn.getResponseCode();
+
+            // If the response code is 200 (OK), retrieve the response from the server
             if (responseCode == 200) {
+                // Create a BufferedReader to read the response from the input stream
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();
+                // Read the response line by line and append to the StringBuilder
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
+                // Close the BufferedReader
                 in.close();
 
+                // Parse the response string into a JSONArray
                 JSONArray jsonArray = new JSONArray(response.toString());
+
+                // Iterate through the JSON objects in the JSONArray
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    // Extract the values of each JSON object
                     int id = jsonObject.getInt("id");
                     String sensorName = jsonObject.getString("Sensor_Name");
                     String sensorType = jsonObject.getString("Sensor_Type");
@@ -94,12 +117,15 @@ public class JavaRestSelect {
                     boolean isGrp2 = jsonObject.getBoolean("is_Grp2");
                     String location = jsonObject.getString("Location");
 
+                    // Print the extracted values in a formatted string
                     System.out.format("%d, %s, %s, %d, %b, %s\n", id, sensorName, sensorType, temp, isGrp2, location);
                 }
             } else {
+                // If the response code is not 200, print an error message
                 System.err.println("Failed to retrieve data, response code: " + responseCode);
             }
         } catch (Exception e) {
+            // If an exception is caught, print an error message and the exception message
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
         }
