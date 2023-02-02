@@ -33,10 +33,9 @@ import eu.arrowhead.common.dto.shared.ServiceInterfaceResponseDTO;
 import eu.arrowhead.common.dto.shared.ServiceQueryFormDTO;
 import eu.arrowhead.common.exception.InvalidParameterException;
 
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
 
 
 /* 
@@ -88,7 +87,7 @@ public class ConsumerMain implements ApplicationRunner {
 	    scanner.close();
 	}
 	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
-	public void addSensor(Scanner scanner) {
+	public void addSensor(Scanner scanner) throws IOException, InterruptedException{
 		ArrayList<object> objectList = new ArrayList<object>(); //List with lists of attributes
 
 		System.out.println("Please enter the sensor type [temp, thermostat, camera]..."); //Maybe this could be a drop down menu instead
@@ -139,36 +138,12 @@ public class ConsumerMain implements ApplicationRunner {
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
 		
-		System.out.println("--------Should run after this---------");
-				
-		//establish connection
-		//might be a different url, not sure if it's this function we want from swagger    
-		URL mysqlurl = new URL("https://localhost:8443/serviceregistry/mgmt");
-		HttpURLConnection connection = (HttpURLConnection) mysqlurl.openConnection();
-		System.out.println("Connection established");
-	
-		//set request method "POST"
-		connection.setRequestMethod("POST");
-		System.out.println("1");
-		connection.setRequestProperty("accept", "applicaton/json");
-		System.out.println("2");
-		connection.setRequestProperty("Content-Type", "application/json");
-		System.out.println("3");
-		System.out.println("POST request");
-
-		//query for mysql
-		String query = "INSERT INTO service_registry" + "VALUES ("objectList.get(0).getType()", service_id, system_id, service_uri, end_of_validity, secure, metadata, version, created_at, updated_at)";
-		System.out.println("4");
-		connection.setDoOutput(true);
-		System.out.println("5");
-		OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-		System.out.println("6");
-		writer.write(query);
-		writer.flush();
-		writer.close();
-		connection.getOutputStream().close();
-		System.out.println("7");
+		ProcessBuilder pb = new ProcessBuilder("curl -X GET 'https://localhost:8443/serviceregistry/mgmt/systems?direction=ASC&item_per_page=1&page=8&sort_field=id' -H  'accept: */*");
+        pb.inheritIO();
+        Process process = pb.start();
+        process.waitFor();
 		
+
 		
 	}
 	
