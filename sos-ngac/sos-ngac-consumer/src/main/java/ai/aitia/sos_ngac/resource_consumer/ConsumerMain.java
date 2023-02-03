@@ -87,7 +87,7 @@ public class ConsumerMain implements ApplicationRunner {
 	    scanner.close();
 	}
 	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
-	public void addSensor(Scanner scanner) throws IOException, InterruptedException{
+	public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception{
 		ArrayList<object> objectList = new ArrayList<object>(); //List with lists of attributes
 
 		System.out.println("Please enter the sensor type [temp, thermostat, camera]..."); //Maybe this could be a drop down menu instead
@@ -138,11 +138,21 @@ public class ConsumerMain implements ApplicationRunner {
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
 		
-		ProcessBuilder pb = new ProcessBuilder("curl -X GET 'https://localhost:8443/serviceregistry/mgmt/systems?direction=ASC&item_per_page=1&page=8&sort_field=id' -H  'accept: */*");
-        pb.inheritIO();
-        Process process = pb.start();
-        process.waitFor();
-		
+		ProcessBuilder pb = new ProcessBuilder("ping", "google.com");
+        pb.directory(new File("/home"));
+
+		try{
+			Process process = pb.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line;
+			while((line = reader.readLine()) != null){
+				System.out.println(line);
+			}
+			int exitCode = process.waitFor();
+			System.out.println("\nExited with error code : " + exitCode);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 
 		
 	}
