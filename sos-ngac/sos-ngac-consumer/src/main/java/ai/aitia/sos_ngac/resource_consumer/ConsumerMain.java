@@ -138,18 +138,24 @@ public class ConsumerMain implements ApplicationRunner {
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
 		
-		ProcessBuilder pb = new ProcessBuilder("ping", "google.com");
-        pb.directory(new File("/home"));
-
+		String curlCommand = "curl -X POST 'http://localhost:8443/serviceregistry/mgmt/systems' -H  'accept: application/json' -H  'Content-Type: application/json' -d '{  \'address\': \'localhost\',  \'metadata\': {    \'SensorType\': \'Temp\',    \'manF\': \'BOOSCH\',    \'additionalProp3\': \'string\'  },  \'port\': 0,  \'systemName\': \'Sensor4\'}'";
+		//ProcessBuilder pb = new ProcessBuilder("curl", curlCommand);
+		//pb.directory(new File("/home/emil/Desktop/ArrowheadLTU/sos-ngac/sos-ngac/sos-ngac-consumer/src/main/java/ai/aitia/sos_ngac/resource_consumer/ConsumerMain.java"));
+		
 		try{
-			Process process = pb.start();
+			
+			//Process process = pb.start();
+			System.out.println("Running???");
+			Process process = Runtime.getRuntime().exec(curlCommand);
+			System.out.println("Running???");
+
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
-			while((line = reader.readLine()) != null){
-				System.out.println(line);
+			if((line = reader.readLine()) != null){
+			System.out.println(line);
 			}
-			int exitCode = process.waitFor();
-			System.out.println("\nExited with error code : " + exitCode);
+			process.waitFor();
+			//System.out.println("\nExited with error code : " + exitCode);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
