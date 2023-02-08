@@ -88,54 +88,50 @@ public class ConsumerMain implements ApplicationRunner {
 	}
 	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
 	public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception{
-		ArrayList<object> objectList = new ArrayList<object>(); //List with lists of attributes
 
-		System.out.println("Please enter the sensor type [temp, thermostat, camera]..."); //Maybe this could be a drop down menu instead
-		String type = scanner.nextLine();
-		if(type.equals("temp") || type.equals("thermostat")){
-			
-			//Room for more implementation
-			
-		}
-		else{
-			System.out.println("Sensor not supported...");
-		}
-		System.out.println("Please enter the sensor name..."); //Maybe this could be a drop down menu instead
-		String name = scanner.nextLine();
-		if(name.length() < 20){
-			Pattern my_pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-			Matcher my_match = my_pattern.matcher(name);
-			boolean check = my_match.find();
-			if(check){
-				System.out.println("Name is not allowed special chars...");
-				return;
-			}
-		}
+        String manuF = "";
 
-		//Room for more implementation
+        System.out.println("Please enter the sensor type [temp, thermostat]...");
+        String type = scanner.nextLine();
 
-		else{
-			System.out.println("Name is invalid...\n");
-		}
-			
-			
-		
-		System.out.println("Please enter the sensor location [zoneA, ZoneB]..."); //Maybe this could be a drop down menu instead
-		String location = scanner.nextLine();
-		if(location.equals("zoneA") || location.equals("zoneB")){
-			
-			//Room for more implementation
+        if(type.equals("temp") || type.equals("thermostat")){
+            switch (type){
+                case "temp":
+                manuF = "BOOSCH";
+                break;
+                
+                case "thermostat":
+                manuF = "NEST";
+                break;
+            }
+        }
+        else{
+            System.out.println("Sensor not supported...");
+        }
 
-		}
-		else{
-			System.out.println("Zone does not exist...\n");
-		}
-		object newObject = new object(type, name, location);
+        System.out.println("Please enter the sensor name..."); //Maybe this could be a drop down menu instead
+        String name = scanner.nextLine();
+        
+        if(name.length() < 20){
+            Pattern my_pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+            Matcher my_match = my_pattern.matcher(name);
+            boolean check = my_match.find();
+            if(check){
+                System.out.println("Name is not allowed special chars...");
+                return;
+            }
+        }
+        else{
+            System.out.println("Name is invalid...\n");
+        }
+
+        object newObject = new object(type, name, manuF);
+
 
 		//Just a part of testing -----------
-		System.out.println("The newObject attributes:");
-		objectList.add(newObject);
-		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
+		//System.out.println("The newObject attributes:");
+		//objectList.add(newObject);
+		//System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
 
 
