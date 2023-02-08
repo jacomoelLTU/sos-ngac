@@ -146,10 +146,17 @@ public class ConsumerMain implements ApplicationRunner {
 			String applicationType ="Content-Type: application/json";
 			String jsonArr = "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor11\"}";
 			
+
+			/*					THIS IS JUST WORKING COMMANDS THAT IS HARD CODED AND WORKING			 */
+
 			//curl -X POST "https://localhost:8443/serviceregistry/mgmt/systems" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor1\"}"
 			//ProcessBuilder pb = new ProcessBuilder("curl", "-X", "POST", "http://localhost:8443/serviceregistry/mgmt/systems", "-H", "accept: application/json", "-H", "Content-Type: application/json", "-d", "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor9\"}");
 			//curl -X GET "http://localhost:8443/serviceregistry/mgmt/systems/66" -H  "accept: */*"
 			//ProcessBuilder pb = new ProcessBuilder("curl", "-X", "GET", "http://localhost:8443/serviceregistry/mgmt/systems/66", "-H", "accept: */*");
+			
+			/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+			
+			
 			ProcessBuilder pb = new ProcessBuilder("curl", "-X", "POST", hostName, "-H", application, "-H", applicationType, "-d", jsonArr);
 			
 			
