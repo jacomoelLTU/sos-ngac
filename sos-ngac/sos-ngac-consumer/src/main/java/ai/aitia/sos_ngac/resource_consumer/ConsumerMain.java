@@ -144,7 +144,7 @@ public class ConsumerMain implements ApplicationRunner {
 			String hostName = "http://localhost:8443/serviceregistry/mgmt/systems";
 		    String application = "accept: application/json";
 			String applicationType ="Content-Type: application/json";
-			String jsonArr = "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor11\"}";
+			String jsonArr = "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \""+newObject.getType()+"\",    \"manF\": \""+newObject.getmanufacturer()+"\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \""+newObject.getName()+"\"}";
 			
 
 			/*					THIS IS JUST WORKING COMMANDS THAT IS HARD CODED AND WORKING			 */
