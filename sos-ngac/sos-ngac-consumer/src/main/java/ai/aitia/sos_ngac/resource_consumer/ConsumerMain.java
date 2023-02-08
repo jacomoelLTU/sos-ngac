@@ -137,26 +137,42 @@ public class ConsumerMain implements ApplicationRunner {
 		objectList.add(newObject);
 		System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
 		// ---------------------------------
-		
-		String curlCommand = "curl -X POST 'http://localhost:8443/serviceregistry/mgmt/systems' -H  'accept: application/json' -H  'Content-Type: application/json' -d '{  \'address\': \'localhost\',  \'metadata\': {    \'SensorType\': \'Temp\',    \'manF\': \'BOOSCH\',    \'additionalProp3\': \'string\'  },  \'port\': 0,  \'systemName\': \'Sensor4\'}'";
-		//ProcessBuilder pb = new ProcessBuilder("curl", curlCommand);
-		//pb.directory(new File("/home/emil/Desktop/ArrowheadLTU/sos-ngac/sos-ngac/sos-ngac-consumer/src/main/java/ai/aitia/sos_ngac/resource_consumer/ConsumerMain.java"));
-		
-		try{
-			
-			//Process process = pb.start();
-			System.out.println("Running???");
-			Process process = Runtime.getRuntime().exec(curlCommand);
-			System.out.println("Running???");
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line;
-			if((line = reader.readLine()) != null){
-			System.out.println(line);
+
+		 try{
+			System.out.println("---------------Commando come after here--------------");
+			// String hostName = "\"http://localhost:8443/serviceregistry/mgmt/systems\"";
+			// String application = "\"accept: application/json\"";
+			// String applicationType ="\"Content-Type: application/json\"";
+			// String jsonArr = "\"{  \\\"address\\\": \\\"localhost\\\",  \\\"metadata\\\": {    \\\"SensorType\\\": \\\"Temp\\\",    \\\"manF\\\": \\\"BOOSCH\\\",    \\\"additionalProp3\\\": \\\"string\\\"  },  \\\"port\\\": 0,  \\\"systemName\\\": \\\"Sensor7\\\"}\"";
+
+			//String command = String.format("curl -X POST %s -H  %s -H  %s -d %s", hostName, application, applicationType, jsonArr);
+			
+			// Runtime rt = Runtime.getRuntime();
+			// Process process = rt.exec(command);
+			
+			//Process process = Runtime.getRuntime().exec(command);
+			//ProcessBuilder pb = new ProcessBuilder("curl", "-X", "POST", "http://localhost:8443/serviceregistry/mgmt/systems", "-H", "accept: application/json", "-H", "Content-Type: application/json", "-d","\"{  \\\"address\\\": \\\"localhost\\\",  \\\"metadata\\\": {    \\\"SensorType\\\": \\\"Temp\\\",    \\\"manF\\\": \\\"BOOSCH\\\",    \\\"additionalProp3\\\": \\\"string\\\"  },  \\\"port\\\": 0,  \\\"systemName\\\": \\\"Sensor8\\\"}\"");
+			
+			//curl -X GET "http://localhost:8443/serviceregistry/mgmt/systems/65" -H  "accept: */*"
+			ProcessBuilder pb = new ProcessBuilder("curl","-X","GET","http://localhost:8443/serviceregistry/mgmt/systems/65","H","accept*/*");
+			Process process = pb.start();
+			InputStream is = process.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			StringBuilder responseStrBuilder = new StringBuilder();
+
+			String line = new String();
+
+			while ((line = br.readLine()) != null) {
+				System.out.println("read line from curl command: " + line);
+				responseStrBuilder.append(line);
 			}
-			process.waitFor();
-			//System.out.println("\nExited with error code : " + exitCode);
+			System.out.println("-----------------------------");
+
 		}catch(IOException e){
+			System.out.println("FEEEl-----------------------------");
+
 			e.printStackTrace();
 		}
 
