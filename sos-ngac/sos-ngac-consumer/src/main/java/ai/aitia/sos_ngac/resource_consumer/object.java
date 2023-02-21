@@ -5,14 +5,13 @@ package ai.aitia.sos_ngac.resource_consumer;
 public class object {
     private String type;
     private String name;
-    private String location;
+    private String manufacturer;
 
     //Constructor that creates object with type and name. 
-    public object(String type, String name, String location){
-        this.type     = type;
-        this.name     = name;
-        this.location = location;
-        
+    public object(String type, String name, String manufacturer){
+        this.type         = type;
+        this.manufacturer = manufacturer;
+        this.name         = name;
     }
     
     public void setType(String type){
@@ -21,8 +20,8 @@ public class object {
     public void setName(String name){
         this.name = name;
     }
-    public void setLocation(String location){
-        this.location = location;
+    public void setmanufacturer(String manufacturer){
+        this.manufacturer = manufacturer;
     }
 
     
@@ -32,8 +31,8 @@ public class object {
     public String getName(){
         return this.name;
     }
-    public String getLocation(){
-        return this.location;
+    public String getmanufacturer(){
+        return this.manufacturer;
     }
 
 }
