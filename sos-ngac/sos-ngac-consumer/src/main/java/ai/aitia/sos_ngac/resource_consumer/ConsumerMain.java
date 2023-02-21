@@ -87,6 +87,7 @@ public class ConsumerMain implements ApplicationRunner {
 	    scanner.close();
 	}
 	//Added the logic behind the choices the user will have, (can be expanded) 2023-jan-16
+<<<<<<< HEAD
 			public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception{
 				String manuF ="";
 
@@ -129,6 +130,77 @@ public class ConsumerMain implements ApplicationRunner {
 
 			ProcessBuilder pb = new ProcessBuilder("curl", "-X", "GET", "http://localhost:8443/serviceregistry/mgmt/systems/66", "-H", "accept: */*");
 
+=======
+	public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception{
+
+        String manuF = "";
+
+        System.out.println("Please enter the sensor type [temp, thermostat]...");
+        String type = scanner.nextLine();
+
+        if(type.equals("temp") || type.equals("thermostat")){
+            switch (type){
+                case "temp":
+                manuF = "BOOSCH";
+                break;
+                
+                case "thermostat":
+                manuF = "NEST";
+                break;
+            }
+        }
+        else{
+            System.out.println("Sensor not supported...");
+        }
+
+        System.out.println("Please enter the sensor name..."); //Maybe this could be a drop down menu instead
+        String name = scanner.nextLine();
+        
+        if(name.length() < 20){
+            Pattern my_pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+            Matcher my_match = my_pattern.matcher(name);
+            boolean check = my_match.find();
+            if(check){
+                System.out.println("Name is not allowed special chars...");
+                return;
+            }
+        }
+        else{
+            System.out.println("Name is invalid...\n");
+        }
+
+        object newObject = new object(type, name, manuF);
+
+
+		//Just a part of testing -----------
+		//System.out.println("The newObject attributes:");
+		//objectList.add(newObject);
+		//System.out.println(objectList.get(0).getType() + " " + objectList.get(0).getName() + " " + objectList.get(0).getLocation());
+		// ---------------------------------
+
+
+		 try{
+			System.out.println("---------------Commando come after here--------------");
+			String hostName = "http://localhost:8443/serviceregistry/mgmt/systems";
+		    String application = "accept: application/json";
+			String applicationType ="Content-Type: application/json";
+			String jsonArr = "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \""+newObject.getType()+"\",    \"manF\": \""+newObject.getmanufacturer()+"\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \""+newObject.getName()+"\"}";
+			
+
+			/*					THIS IS JUST WORKING COMMANDS THAT IS HARD CODED AND WORKING			 */
+
+			//curl -X POST "https://localhost:8443/serviceregistry/mgmt/systems" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor1\"}"
+			//ProcessBuilder pb = new ProcessBuilder("curl", "-X", "POST", "http://localhost:8443/serviceregistry/mgmt/systems", "-H", "accept: application/json", "-H", "Content-Type: application/json", "-d", "{  \"address\": \"localhost\",  \"metadata\": {    \"SensorType\": \"Temp\",    \"manF\": \"BOOSCH\",    \"additionalProp3\": \"string\"  },  \"port\": 0,  \"systemName\": \"Sensor9\"}");
+			//curl -X GET "http://localhost:8443/serviceregistry/mgmt/systems/66" -H  "accept: */*"
+			//ProcessBuilder pb = new ProcessBuilder("curl", "-X", "GET", "http://localhost:8443/serviceregistry/mgmt/systems/66", "-H", "accept: */*");
+			
+			/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+			
+			
+			ProcessBuilder pb = new ProcessBuilder("curl", "-X", "POST", hostName, "-H", application, "-H", applicationType, "-d", jsonArr);
+			
+			
+>>>>>>> 08fa2a4c7ed6a7c3e6dacc4fd12ce53e2196e72b
 			Process process = pb.start();
 			InputStream is = process.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
