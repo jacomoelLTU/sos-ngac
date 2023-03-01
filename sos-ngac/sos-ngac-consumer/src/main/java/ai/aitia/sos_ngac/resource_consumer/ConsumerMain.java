@@ -88,16 +88,16 @@ public class ConsumerMain implements ApplicationRunner {
 
 		String manuF = "";
 
-		System.out.println("Please enter the sensor type [temp, thermostat]...");
+		System.out.println("Please enter the sensor type [TempSensor, Thermostat]...");
 		String type = scanner.nextLine();
 
-		if (type.equals("temp") || type.equals("thermostat")) {
+		if (type.equals("TempSensor") || type.equals("Thermostat")) {
 			switch (type) {
-				case "temp":
+				case "TempSensor":
 					manuF = "BOOSCH";
 					break;
 
-				case "thermostat":
+				case "Thermostat":
 					manuF = "NEST";
 					break;
 			}
@@ -125,7 +125,7 @@ public class ConsumerMain implements ApplicationRunner {
 		postResource(dto);
 
 		// Get Policy name
-		ResourceRequestDTO requestGetpol = new ResourceRequestDTO(name, "g", type, null);
+		ResourceRequestDTO requestGetpol = new ResourceRequestDTO(null, "g", null, null);
 		
 
 		System.out.println("______________________________________");
@@ -133,9 +133,17 @@ public class ConsumerMain implements ApplicationRunner {
 		ResourceResponseDTO result = requestUpdate(orchestrationResult, requestGetpol);
 		System.out.println(result.getServerStatus());
 
-		// Add element request
+		// Add element request with current policy sent as argument
 		ResourceRequestDTO requestUpdate = new ResourceRequestDTO(name, "a", type, result.getServerStatus());
 		requestUpdate(orchestrationResult, requestUpdate);
+
+		// Assign added element to type
+		ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "assign", type, result.getServerStatus());
+		requestUpdate(orchestrationResult, requestUpdateAssign);
+
+		// Add and assign element with current policy sent as argument
+		// ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "addm", type, result.getServerStatus());
+		// requestUpdate(orchestrationResult, requestUpdateAssign);
 
 	}
 

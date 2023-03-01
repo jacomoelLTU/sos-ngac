@@ -34,7 +34,6 @@ public class PolicyServerController {
 	@PostMapping(value = PolicyServerConstants.ADMIN_INTERFACE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pai(@RequestBody final PolicyRequestDTO dto) throws Exception {
-		System.out.println("VIIIIII ÄÄÄÄR PÅÅÅÅ GGGG PAI PAI PAI PAI");
 		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, PolicyServerConstants.NGAC_SERVER_ADMIN_API);
 		return responseDTO;
 	}
@@ -46,12 +45,11 @@ public class PolicyServerController {
 		return responseDTO;
 	}
 
-	//create a new service that updates the server upon adding of new stuff 
+	// New service that updates the server upon adding of new stuff #2023
 	@PostMapping(value = PolicyServerConstants.QUERY_UPDATE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pqu(@RequestBody final PolicyRequestDTO dto) throws Exception {
 
-		System.out.println("VIIIIII ÄÄÄÄR PÅÅÅÅ GGGGGGGG");
 		//logic kanske måste in här ELLER att vi skickar hit allt som lagts till precis baserat på queries så vi 
 		//ba kan assigna allt rätt av
 

@@ -68,7 +68,7 @@ public class PolicyEnforcementPoint {
 	}
 
 	//entry function for automatic adding 2023 project
-	public PolicyResponseDTO accessControlAdd(String user, String operation, String object, String value) {
+	public PolicyResponseDTO accessControlAdd(String name, String operation, String type, String value) {
 
 		System.out.println("NU ÄR VI I accessADD i PEP");
 		
@@ -79,7 +79,20 @@ public class PolicyEnforcementPoint {
 		switch(operation) {
 			case "a":
 				op = ADD_ELEMENT;
-				args = new String[] {value,"object(s4)","admin_token"};
+				//add
+				args = null;
+				args = new String[] {value, "object("+name+")" ,"admin_token"};
+			break;
+			case "assign":
+				//assign
+				op = ADD_ELEMENT;
+				args = null;
+				args = new String[] {value, "assign("+name+",'"+type+"')" ,"admin_token"};
+			break;
+			case "addm":
+				op = ADD_MULTIPLE_ELEMENTS;
+				args = null;
+				args = new String[] {value, "object("+name+") , assign("+name+",'"+type+"')" ,"admin_token"};
 			break;
 		}
 		PolicyRequestDTO dto = new PolicyRequestDTO(op, args);
