@@ -13,6 +13,10 @@ public class ConsumerConstants {
 	public static final String REQUEST_RESOURCE_URI = "/request";
 
 	
+	public static final String QUERY_INTERFACE_SERVICE_UPDATE = "policy-update";
+	public static final String QUERY_UPDATE_URI = "/pqu";
+
+	
 	private ConsumerConstants() {
 		throw new UnsupportedOperationException();
 	}

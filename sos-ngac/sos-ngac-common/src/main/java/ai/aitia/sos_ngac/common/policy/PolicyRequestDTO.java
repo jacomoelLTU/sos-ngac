@@ -17,8 +17,7 @@ public class PolicyRequestDTO implements Serializable {
 		this.op = op;
 		this.args = args;
 	}
-	
-	
+
 	public String getOp() {
 		return op;
 	}

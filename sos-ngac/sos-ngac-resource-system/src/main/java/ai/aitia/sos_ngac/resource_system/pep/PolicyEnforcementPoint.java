@@ -32,6 +32,18 @@ public class PolicyEnforcementPoint {
 	private final String INTERFACE_INSECURE = "HTTP-INSECURE-JSON";
 	private final String ACCESS_QUERY = "access?";
 	private final String CONDITIONAL_ACCESS_QUERY = "caccess?";
+
+	//2023 PEP constatns
+	private final String GET_POLICY = "getpol?";
+	private final String ADD_ELEMENT = "add?";
+	private final String ADD_MULTIPLE_ELEMENTS = "addm?";
+	private final String ADMIN_INTERFACE = "admin-interface";
+	private final String UPDATE_DEFINITION = "policy-update";
+
+	private final String UPDATE_POL = "/pqu";
+
+
+
 	
 	@Autowired
 	private ArrowheadService arrowheadService;
@@ -51,6 +63,26 @@ public class PolicyEnforcementPoint {
 		final OrchestrationResultDTO orchestrationResult = orchestrate(QUERY_INTERFACE_SERVICE_DEFINITION);
 		
 		PolicyRequestDTO dto = new PolicyRequestDTO(ACCESS_QUERY, new String[] {user, operation, object});
+		
+		// Consume policy server query interface service and get the server response
+		PolicyResponseDTO policyServerResponse = consumePQI(orchestrationResult, dto);
+		
+		return policyServerResponse;
+	}
+
+	//entry function for automatic adding 2023 project
+	public PolicyResponseDTO accessControlAdd(String user, String operation, String object) {
+
+		System.out.println("NU ÄR VI I accessADD i PEP");
+		
+		// Orchestrate the resource system-policy server interaction
+		final OrchestrationResultDTO orchestrationResult = orchestrate(UPDATE_DEFINITION);
+
+		
+		// PolicyRequestDTO dto = new PolicyRequestDTO(GET_POLICY, new String[] {"admin_token"});
+
+		PolicyRequestDTO dto = new PolicyRequestDTO(ADD_ELEMENT, new String[] {"2023ExP1","[object(s4),assign(s4,'TempSensor')]","admin_token"});
+
 		
 		// Consume policy server query interface service and get the server response
 		PolicyResponseDTO policyServerResponse = consumePQI(orchestrationResult, dto);

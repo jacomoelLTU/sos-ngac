@@ -76,6 +76,7 @@ public class PolicyOpTable {
 					PolicyOpConstants.PARAM_OBJECT,
 					PolicyOpConstants.PARAM_CONDITION
 					})
+				
 			);
 	
 	public PolicyOpTable() {

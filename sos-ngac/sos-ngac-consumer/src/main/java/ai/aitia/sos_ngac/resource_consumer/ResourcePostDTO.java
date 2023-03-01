@@ -2,13 +2,13 @@ package ai.aitia.sos_ngac.resource_consumer;
 
 //A class that stands for generall objects. This could be a sensor, a car... This can be built on 
 //to make more indepths objects via java heritage. 
-public class object {
+public class ResourcePostDTO {
     private String type;
     private String name;
     private String manufacturer;
 
     //Constructor that creates object with type and name. 
-    public object(String type, String name, String manufacturer){
+    public ResourcePostDTO(String type, String name, String manufacturer){
         this.type         = type;
         this.manufacturer = manufacturer;
         this.name         = name;

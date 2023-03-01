@@ -35,23 +35,50 @@ public class ResourceSystemController {
 	// Mapping function for resource request service
 	@PostMapping(value = ResourceSystemConstants.REQUEST_RESOURCE_URI)
 	@ResponseBody
-	public ResourceResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception 
-	{
-		PolicyResponseDTO serverResponse;
-		if (dto.getCondition() == null) {
-			serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject());
-		} else {
-			serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject(), dto.getCondition());
+	public ResourceResponseDTO requestResource(@RequestBody final ResourceRequestDTO dto) throws Exception {
+		
+		System.out.println(dto.getOperation());
+		System.out.println("WEEE DONT KNOW A THING");
+
+		String operation = dto.getOperation();
+		if(dto.getOperation() == operation){
+
+			System.out.println("inside if");
+
+			PolicyResponseDTO serverResponse;
+			serverResponse = pep.accessControlAdd(dto.getUser(), dto.getOperation(), dto.getObject());
+
+			if (serverResponse.getRespMessage().equals(RAPConstants.POLICY_GRANTED)) {
+				String[] resourceSystemResponse = rap.access(dto);
+				return new ResourceResponseDTO(
+						serverResponse.getRespStatus(), 
+						serverResponse.getRespMessage(), 
+						serverResponse.getRespBody(),
+						resourceSystemResponse
+						);
+			}
+			return new ResourceResponseDTO(serverResponse.getRespStatus(), serverResponse.getRespMessage(), serverResponse.getRespBody());
 		}
-		if (serverResponse.getRespMessage().equals(RAPConstants.POLICY_GRANTED)) {
-			String[] resourceSystemResponse = rap.access(dto);
-			return new ResourceResponseDTO(
-					serverResponse.getRespStatus(), 
-					serverResponse.getRespMessage(), 
-					serverResponse.getRespBody(),
-					resourceSystemResponse
-					);
-		}
-		return new ResourceResponseDTO(serverResponse.getRespStatus(), serverResponse.getRespMessage(), serverResponse.getRespBody());
-	} 
+
+		else {
+			PolicyResponseDTO serverResponse;
+			if (dto.getCondition() == null) {
+				serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject());
+			} else {
+				serverResponse = pep.accessControl(dto.getUser(), dto.getOperation(), dto.getObject(), dto.getCondition());
+			}
+			if (serverResponse.getRespMessage().equals(RAPConstants.POLICY_GRANTED)) {
+				String[] resourceSystemResponse = rap.access(dto);
+				return new ResourceResponseDTO(
+						serverResponse.getRespStatus(), 
+						serverResponse.getRespMessage(), 
+						serverResponse.getRespBody(),
+						resourceSystemResponse
+						);
+			}
+			return new ResourceResponseDTO(serverResponse.getRespStatus(), serverResponse.getRespMessage(), serverResponse.getRespBody());
+		} 
+	}
 }
+	
+
