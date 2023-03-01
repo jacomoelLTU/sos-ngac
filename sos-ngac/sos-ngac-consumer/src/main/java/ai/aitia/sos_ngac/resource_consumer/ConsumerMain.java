@@ -1,7 +1,6 @@
 package ai.aitia.sos_ngac.resource_consumer;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,11 +15,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpMethod;
 
 import ai.aitia.arrowhead.application.library.ArrowheadService;
-import ai.aitia.sos_ngac.common.policy.PolicyOpConstants;
-import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
-import ai.aitia.sos_ngac.common.policy.PolicyUpdateRequestDTO;
-import ai.aitia.sos_ngac.common.policy.PolicyUpdateResponseDTO;
 import ai.aitia.sos_ngac.common.resource.ResourceRequestDTO;
 import ai.aitia.sos_ngac.common.resource.ResourceResponseDTO;
 import eu.arrowhead.common.CommonConstants;
@@ -36,8 +30,6 @@ import eu.arrowhead.common.dto.shared.ServiceQueryFormDTO;
 import eu.arrowhead.common.exception.InvalidParameterException;
 
 import java.io.*;
-import java.lang.*;
-import java.util.*;
 
 /* 
  * Consumer main class which defines all consumer behavior
@@ -92,7 +84,7 @@ public class ConsumerMain implements ApplicationRunner {
 	// 2023-jan-16
 	public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception {
 
-		OrchestrationResultDTO orchestrationResult = orchestrate();
+		OrchestrationResultDTO orchestrationResult = updateOrchestrate();
 
 		String manuF = "";
 
@@ -128,26 +120,22 @@ public class ConsumerMain implements ApplicationRunner {
 			System.out.println("Name is invalid...\n");
 		}
 
+		//
 		ResourcePostDTO dto = new ResourcePostDTO(type, name, manuF);
 		postResource(dto);
 
-		// //HÄR VILL VI INITIERA UPDATE POLICY
-		// String [] param_token = {"admin_token"};
-		// OrchestrationResultDTO orchestrationResult = updateOrchestrate();
-		// PolicyUpdateRequestDTO updateRequestDTO = new PolicyUpdateRequestDTO();
-
-		///policyRequest(orchestrationResult, updateRequestDTO);
-
-		// vi måste hämta policy namn via "getpol?" sedan köra add API
-		// String param[] = {"admin_token"}; 
-		// PolicyRequestDTO getPolicyNameDTO = new PolicyRequestDTO(PolicyOpConstants.GET_POLICY, param);
-		// apiHandler.handleUpdateRequest();
-
-		//omstart 2023.02. 
-		ResourceRequestDTO requestUpdate = new ResourceRequestDTO(name,"a", type, null);
-		requestResource(orchestrationResult, requestUpdate);
+		// Get Policy name
+		ResourceRequestDTO requestGetpol = new ResourceRequestDTO(name, "g", type, null);
 		
 
+		System.out.println("______________________________________");
+
+		ResourceResponseDTO result = requestUpdate(orchestrationResult, requestGetpol);
+		System.out.println(result.getServerStatus());
+
+		// Add element request
+		ResourceRequestDTO requestUpdate = new ResourceRequestDTO(name, "a", type, result.getServerStatus());
+		requestUpdate(orchestrationResult, requestUpdate);
 
 	}
 
@@ -272,40 +260,52 @@ public class ConsumerMain implements ApplicationRunner {
 
 	}
 
-	// Consume policy request for getpol line 166, 20203 implemented for addSensor
-	// function help
-	public void policyRequest(OrchestrationResultDTO orchestrationResult, PolicyUpdateRequestDTO dto) {
+	// Consume update request from the resource system provider #2023
+	public ResourceResponseDTO requestUpdate(OrchestrationResultDTO orchestrationResult, ResourceRequestDTO dto) {
 		logger.info("Policy request: ");
 		printOut(dto);
 		final String token = orchestrationResult.getAuthorizationTokens() == null ? null
 				: orchestrationResult.getAuthorizationTokens().get(getInterface());
 
-		final PolicyUpdateResponseDTO providerResponse = arrowheadService.consumeServiceHTTP(PolicyUpdateResponseDTO.class,
+		final ResourceResponseDTO providerResponse = arrowheadService.consumeServiceHTTP(ResourceResponseDTO.class,
 				HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
 				orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(),
 				orchestrationResult.getServiceUri(), getInterface(), token, dto, new String[0]);
 		logger.info("Provider response");
 		printOut(providerResponse);
+		return providerResponse;
 	}
 
-		// Consume policy request for getpol line 166, 20203 implemented for addSensor JACKES OCH ADAMS
-	// function help
-	// public void policyRequest(OrchestrationResultDTO orchestrationResult, PolicyRequestDTO dto) {
-	// 	logger.info("Policy request: ");
-	// 	printOut(dto);
-	// 	final String token = orchestrationResult.getAuthorizationTokens() == null ? null
-	// 			: orchestrationResult.getAuthorizationTokens().get(getInterface());
+	// Orchestrate service consumption for requestUpdate #2023
+	public OrchestrationResultDTO updateOrchestrate() throws Exception {
+		logger.info("Orchestration request for " + ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE + " service:");
+		final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(
+				ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE).interfaces(getInterface()).build();
 
-	// 	final PolicyResponseDTO providerResponse = arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class,
-	// 			HttpMethod.valueOf(orchestrationResult.getMetadata().get(ConsumerConstants.HTTP_METHOD)),
-	// 			orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(),
-	// 			orchestrationResult.getServiceUri(), getInterface(), token, dto);
-	// 	logger.info("Policy-Provider response");
-	// 	printOut(providerResponse);
-	// 	// needed to get respBody for checking whats in the server before adding
-	// 	System.out.println(providerResponse.getRespBody());
-	// 	// return providerResponse.getRespBody();
-	// }
+		final Builder orchestrationFormBuilder = arrowheadService.getOrchestrationFormBuilder();
+		final OrchestrationFormRequestDTO orchestrationFormRequest = orchestrationFormBuilder
+				.requestedService(serviceQueryForm).flag(Flag.MATCHMAKING, true).flag(Flag.OVERRIDE_STORE, true)
+				.build();
+
+		printOut(orchestrationFormRequest);
+
+		final OrchestrationResponseDTO orchestrationResponse = arrowheadService
+				.proceedOrchestration(orchestrationFormRequest);
+
+		logger.info("Orchestration response:");
+		printOut(orchestrationResponse);
+
+		if (orchestrationResponse == null) {
+			throw new Exception("No orchestration response received");
+		} else if (orchestrationResponse.getResponse().isEmpty()) {
+			throw new Exception("No proviđder found during the orchestration");
+		}
+
+		final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
+		validateOrchestrationResult(orchestrationResult, ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE);
+		return orchestrationResult;
+
+	}
 
 	/* ----------------------- Assistant methods --------------------- */
 
@@ -339,40 +339,6 @@ public class ConsumerMain implements ApplicationRunner {
 		return orchestrationResult;
 
 	}
-
-//////////////////////////////   2023 orchestrate    /////////////////////////////////////////////
-public OrchestrationResultDTO updateOrchestrate() throws Exception {
-	logger.info("Orchestration request for " + ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE + " service:");
-	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(
-			ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE).interfaces(getInterface()).build();
-
-	final Builder orchestrationFormBuilder = arrowheadService.getOrchestrationFormBuilder();
-	final OrchestrationFormRequestDTO orchestrationFormRequest = orchestrationFormBuilder
-			.requestedService(serviceQueryForm).flag(Flag.MATCHMAKING, true).flag(Flag.OVERRIDE_STORE, true)
-			.build();
-
-	printOut(orchestrationFormRequest);
-
-	final OrchestrationResponseDTO orchestrationResponse = arrowheadService
-			.proceedOrchestration(orchestrationFormRequest);
-
-	logger.info("Orchestration response:");
-	printOut(orchestrationResponse);
-
-	if (orchestrationResponse == null) {
-		throw new Exception("No orchestration response received");
-	} else if (orchestrationResponse.getResponse().isEmpty()) {
-		throw new Exception("No proviđder found during the orchestration");
-	}
-
-	final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
-	validateOrchestrationResult(orchestrationResult, ConsumerConstants.QUERY_INTERFACE_SERVICE_UPDATE);
-	return orchestrationResult;
-
-}
-/////////////////////////////////////  end of orchestrate 2023 /////////////////////////////
-
-
 
 	private String getInterface() {
 		return sslProperties.isSslEnabled() ? ConsumerConstants.INTERFACE_SECURE : ConsumerConstants.INTERFACE_INSECURE;

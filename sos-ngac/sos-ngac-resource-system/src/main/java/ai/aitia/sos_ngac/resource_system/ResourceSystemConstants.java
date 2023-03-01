@@ -8,8 +8,9 @@ public class ResourceSystemConstants {
 	public static final String REQUEST_RESOURCE_URI = "/request";
 	public static final String QUERY_INTERFACE_SERVICE_DEFINITION = "query-interface";
 
-	public static final String QUERY_INTERFACE_SERVICE_UPDATE 	  = "policy-update";
-
+	//#2023
+	public static final String QUERY_INTERFACE_SERVICE_UPDATE 	  = "request-update";
+	public static final String REQUEST_UPDATE = "/requestupdate";
 	
 	public static final String INTERFACE_SECURE = "HTTP-SECURE-JSON";
 	public static final String INTERFACE_INSECURE = "HTTP-INSECURE-JSON";

@@ -37,10 +37,7 @@ public class PolicyEnforcementPoint {
 	private final String GET_POLICY = "getpol?";
 	private final String ADD_ELEMENT = "add?";
 	private final String ADD_MULTIPLE_ELEMENTS = "addm?";
-	private final String ADMIN_INTERFACE = "admin-interface";
 	private final String UPDATE_DEFINITION = "policy-update";
-
-	private final String UPDATE_POL = "/pqu";
 
 
 
@@ -71,18 +68,21 @@ public class PolicyEnforcementPoint {
 	}
 
 	//entry function for automatic adding 2023 project
-	public PolicyResponseDTO accessControlAdd(String user, String operation, String object) {
+	public PolicyResponseDTO accessControlAdd(String user, String operation, String object, String value) {
 
 		System.out.println("NU ÄR VI I accessADD i PEP");
 		
 		// Orchestrate the resource system-policy server interaction
 		final OrchestrationResultDTO orchestrationResult = orchestrate(UPDATE_DEFINITION);
-
-		
-		// PolicyRequestDTO dto = new PolicyRequestDTO(GET_POLICY, new String[] {"admin_token"});
-
-		PolicyRequestDTO dto = new PolicyRequestDTO(ADD_ELEMENT, new String[] {"2023ExP1","[object(s4),assign(s4,'TempSensor')]","admin_token"});
-
+		String op = GET_POLICY;
+		String[] args = new String[] {"admin_token"}; 
+		switch(operation) {
+			case "a":
+				op = ADD_ELEMENT;
+				args = new String[] {value,"object(s4)","admin_token"};
+			break;
+		}
+		PolicyRequestDTO dto = new PolicyRequestDTO(op, args);
 		
 		// Consume policy server query interface service and get the server response
 		PolicyResponseDTO policyServerResponse = consumePQI(orchestrationResult, dto);

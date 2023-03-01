@@ -1,7 +1,11 @@
 package ai.aitia.sos_ngac.resource_consumer;
 
-//A class that stands for generall objects. This could be a sensor, a car... This can be built on 
-//to make more indepths objects via java heritage. 
+//This class is defined as other communication DTOs in the system but not used in the same manner,
+//this object only hard writes metadata for newly onboarded objects into the system_ table in the arrowhead DB,
+//through the processbuilder tool in ConsumerMain.java (postResource method).
+
+//this can for sure be done better with some of the spring api's.
+
 public class ResourcePostDTO {
     private String type;
     private String name;

@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 import ai.aitia.sos_ngac.common.policy.PolicyOpTable;
 import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
-import ai.aitia.sos_ngac.common.policy.PolicyUpdateRequestDTO;
-import ai.aitia.sos_ngac.common.policy.PolicyUpdateResponseDTO;
 import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
 import ai.aitia.sos_ngac.policy_server.PolicyServerConstants;
 
@@ -47,23 +45,6 @@ public class ApiHandler {
 		
 		return responseDTO;
 	}
-
-	public PolicyUpdateResponseDTO handleUpdateRequest(PolicyUpdateRequestDTO requestDTO, String ngacServerApi) throws Exception {
-		
-		// Evaluate consumer params and get generated paramBody HashMap
-		HashMap<String, String> paramBody = evalRequest(requestDTO);
-		
-		// Generate URL with service definition and paramBody
-		URL requestURL = createURL(ngacServerApi, requestDTO.getOp(), paramBody);
-		
-		// Query server and retrieve JSON response
-		JSONObject serverResponse = sendServerRequest(requestURL);
-		
-		// Convert server JSON response to responseDTO
-		PolicyUpdateResponseDTO responseDTO = convertUpdateToDTO(serverResponse);
-		
-		return responseDTO;
-	}
 	
 	
 	/* ------------------ Assistant methods ----------------------- */
@@ -89,22 +70,6 @@ public class ApiHandler {
 		return argTable;
 	}
 
-	private HashMap<String, String> evalRequest(PolicyUpdateRequestDTO dto) throws Exception {
-		String op = dto.getOp();
-		String[] args = dto.getArgs();
-		String[] operationParams = PolicyOpTable.table.get(dto.getOp());
-
-		if (operationParams.length != args.length) {
-			throw new Exception("Invalid parameters for operation: " + op + ". Expected: " + Arrays.toString(operationParams));
-		}
-		
-		HashMap<String, String> argTable = new HashMap<>();
-		for (int i = 0; i < operationParams.length; i++) {
-			argTable.put(operationParams[i], args[i]);
-
-		}
-		return argTable;
-	}
 	
 	// Creates URL by unpacking paramBody HashMap and appending NGAC server address with service definition 
 	private URL createURL(String serverApi, String op, HashMap<String,String> paramBody) throws MalformedURLException {
@@ -147,10 +112,5 @@ public class ApiHandler {
 		return new PolicyResponseDTO(respBody,respMessage,respStatus);
 	}
 	
-	private PolicyUpdateResponseDTO convertUpdateToDTO(JSONObject serverResponse) {
-		String respBody = (String) serverResponse.get("respBody");
-		String respMessage = (String) serverResponse.get("respMessage");
-		String respStatus = (String) serverResponse.get("respStatus");
-		return new PolicyUpdateResponseDTO(respBody,respMessage,respStatus);
-	}
+
 }

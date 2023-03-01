@@ -13,8 +13,8 @@ public class ConsumerConstants {
 	public static final String REQUEST_RESOURCE_URI = "/request";
 
 	
-	public static final String QUERY_INTERFACE_SERVICE_UPDATE = "policy-update";
-	public static final String QUERY_UPDATE_URI = "/pqu";
+	public static final String QUERY_INTERFACE_SERVICE_UPDATE = "request-update";
+	public static final String QUERY_UPDATE_URI = "/requestupdate";
 
 	
 	private ConsumerConstants() {
