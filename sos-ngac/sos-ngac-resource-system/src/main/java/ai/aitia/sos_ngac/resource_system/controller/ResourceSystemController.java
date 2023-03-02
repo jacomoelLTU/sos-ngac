@@ -60,13 +60,8 @@ public class ResourceSystemController {
 	@ResponseBody
 	public ResourceResponseDTO requestUpdate(@RequestBody final ResourceRequestDTO dto) throws Exception {
 
-			System.out.println("WEEE DONT KNOW A THING");
 			PolicyResponseDTO serverResponse;
 			serverResponse = pep.accessControlAdd(dto.getUser(), dto.getOperation(), dto.getObject(), dto.getValue());
-			System.out.println("THERE IT COMES");
-			System.out.println(serverResponse.getRespBody());
-			System.out.println(serverResponse.getRespMessage());
-			System.out.println(serverResponse.getRespStatus());
 			if (serverResponse.getRespMessage().equals(RAPConstants.POLICY_GRANTED)) {
 				String[] resourceSystemResponse = rap.access(dto);
 				return new ResourceResponseDTO(
@@ -77,7 +72,6 @@ public class ResourceSystemController {
 						);
 			}
 			return new ResourceResponseDTO(serverResponse.getRespStatus(), serverResponse.getRespMessage(), serverResponse.getRespBody());
-		
 	} 
 }
 

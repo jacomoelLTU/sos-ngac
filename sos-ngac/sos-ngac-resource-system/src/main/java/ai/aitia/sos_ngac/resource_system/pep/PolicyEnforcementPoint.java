@@ -37,7 +37,7 @@ public class PolicyEnforcementPoint {
 	private final String GET_POLICY = "getpol?";
 	private final String ADD_ELEMENT = "add?";
 	private final String ADD_MULTIPLE_ELEMENTS = "addm?";
-	private final String UPDATE_DEFINITION = "policy-update";
+	private final String UPDATE_DEFINITION = "policy-query-update";
 
 
 
@@ -69,17 +69,15 @@ public class PolicyEnforcementPoint {
 
 	//entry function for automatic adding 2023 project
 	public PolicyResponseDTO accessControlAdd(String name, String operation, String type, String value) {
-
-		System.out.println("NU ÄR VI I accessADD i PEP");
-		
+	
 		// Orchestrate the resource system-policy server interaction
 		final OrchestrationResultDTO orchestrationResult = orchestrate(UPDATE_DEFINITION);
 		String op = GET_POLICY;
 		String[] args = new String[] {"admin_token"}; 
 		switch(operation) {
 			case "a":
-				op = ADD_ELEMENT;
 				//add
+				op = ADD_ELEMENT;
 				args = null;
 				args = new String[] {value, "object("+name+")" ,"admin_token"};
 			break;

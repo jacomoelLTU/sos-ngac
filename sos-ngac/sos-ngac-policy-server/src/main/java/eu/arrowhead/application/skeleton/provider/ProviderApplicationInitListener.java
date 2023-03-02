@@ -94,13 +94,6 @@ public class ProviderApplicationInitListener extends ApplicationInitListener {
 				PolicyServerConstants.QUERY_INTERFACE_URI, 
 				HttpMethod.POST);		
 		arrowheadService.forceRegisterServiceToServiceRegistry(pqiServiceRequest);
-
-		//////////// 2023 changes
-		// final ServiceRegistryRequestDTO pquServiceRequest = createServiceRegistryRequest(
-		// 		PolicyServerConstants.QUERY_INTERFACE_SERVICE_UPDATE, 
-		// 		PolicyServerConstants.QUERY_UPDATE_URI, 
-		// 		HttpMethod.POST);		
-		// arrowheadService.forceRegisterServiceToServiceRegistry(pquServiceRequest);
 		
 	}
 	

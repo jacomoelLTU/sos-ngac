@@ -17,6 +17,8 @@ import org.springframework.http.HttpMethod;
 import ai.aitia.arrowhead.application.library.ArrowheadService;
 import ai.aitia.sos_ngac.common.resource.ResourceRequestDTO;
 import ai.aitia.sos_ngac.common.resource.ResourceResponseDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyRequestDTO;
+import ai.aitia.sos_ngac.common.policy.PolicyResponseDTO;
 import eu.arrowhead.common.CommonConstants;
 import eu.arrowhead.common.SSLProperties;
 import eu.arrowhead.common.Utilities;
@@ -27,6 +29,7 @@ import eu.arrowhead.common.dto.shared.OrchestrationResponseDTO;
 import eu.arrowhead.common.dto.shared.OrchestrationResultDTO;
 import eu.arrowhead.common.dto.shared.ServiceInterfaceResponseDTO;
 import eu.arrowhead.common.dto.shared.ServiceQueryFormDTO;
+import eu.arrowhead.common.exception.ArrowheadException;
 import eu.arrowhead.common.exception.InvalidParameterException;
 
 import java.io.*;
@@ -38,6 +41,14 @@ import java.io.*;
 @SpringBootApplication
 @ComponentScan(basePackages = { CommonConstants.BASE_PACKAGE, ConsumerConstants.BASE_PACKAGE })
 public class ConsumerMain implements ApplicationRunner {
+
+	// 2023 PEP constants, these are for updating the policy server 
+	// without going through the resource system and the PEP components
+	private final String HTTP_METHOD = "http-method";
+	private final String GET_POLICY = "getpol?";
+	private final String ADD_ELEMENT = "add?";
+	private final String ADD_MULTIPLE_ELEMENTS = "addm?";
+	private final String UPDATE_DEFINITION = "policy-update";
 
 	// members
 	@Autowired
@@ -124,26 +135,36 @@ public class ConsumerMain implements ApplicationRunner {
 		ResourcePostDTO dto = new ResourcePostDTO(type, name, manuF);
 		postResource(dto);
 
-		// Get Policy name
-		ResourceRequestDTO requestGetpol = new ResourceRequestDTO(null, "g", null, null);
-		
 
-		System.out.println("______________________________________");
+		// This code can be used to finish implementation of client policy control with security checks. 
+		// Calls below are done by using the /requestupdate service and then the /pqu service
+		/* 	
+			// Get Policy name
+			ResourceRequestDTO requestGetpol = new ResourceRequestDTO(null, "g", null, null);
+			ResourceResponseDTO result = requestUpdate(orchestrationResult, requestGetpol);
 
-		ResourceResponseDTO result = requestUpdate(orchestrationResult, requestGetpol);
-		System.out.println(result.getServerStatus());
+			// Add element request with current policy sent as argument
+			ResourceRequestDTO requestUpdate = new ResourceRequestDTO(name, "a", type, result.getServerStatus());
+			requestUpdate(orchestrationResult, requestUpdate);
 
-		// Add element request with current policy sent as argument
-		ResourceRequestDTO requestUpdate = new ResourceRequestDTO(name, "a", type, result.getServerStatus());
-		requestUpdate(orchestrationResult, requestUpdate);
+			// Assign added element to type, add api
+			ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "assign", type, result.getServerStatus());
+			requestUpdate(orchestrationResult, requestUpdateAssign);
 
-		// Assign added element to type
-		ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "assign", type, result.getServerStatus());
-		requestUpdate(orchestrationResult, requestUpdateAssign);
+			//Add and assign element with current policy sent as argument, addm api
+			// ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "addm", type, result.getServerStatus());
+			// requestUpdate(orchestrationResult, requestUpdateAssign);
+		*/
 
-		// Add and assign element with current policy sent as argument
-		// ResourceRequestDTO requestUpdateAssign = new ResourceRequestDTO(name, "addm", type, result.getServerStatus());
-		// requestUpdate(orchestrationResult, requestUpdateAssign);
+		// Get policy and save to variable
+		PolicyResponseDTO getpol = requestPU(name, "g", null, null);
+		printOut(getpol);
+
+		// Add the new object and edge in the policy server graph, 
+		// This is done by two separate add calls, this could also 
+		// be done using the addm function from PolicyOpTable instead, see line 354
+		requestPU(name, "a", type, getpol.getRespStatus());
+		requestPU(name, "assign", type, getpol.getRespStatus());
 
 	}
 
@@ -314,6 +335,79 @@ public class ConsumerMain implements ApplicationRunner {
 		return orchestrationResult;
 
 	}
+
+	//entry function for automatic adding 2023 project
+	public PolicyResponseDTO requestPU(String name, String operation, String type, String value) {
+	
+		// Orchestrate the resource system-policy server interaction
+		final OrchestrationResultDTO orchestrationResult = orchestratePU(UPDATE_DEFINITION);
+		String op = GET_POLICY;
+		String[] args = new String[] {"admin_token"}; 
+		switch(operation) {
+			case "a":
+				//add
+				op = ADD_ELEMENT;
+				args = null;
+				args = new String[] {value, "object("+name+")" ,"admin_token"};
+			break;
+			case "assign":
+				//assign
+				op = ADD_ELEMENT;
+				args = null;
+				args = new String[] {value, "assign("+name+",'"+type+"')" ,"admin_token"};
+			break;
+			case "addm":
+				op = ADD_MULTIPLE_ELEMENTS;
+				args = null;
+				args = new String[] {value, "object("+name+") , assign('"+name+"'','"+type+"')" ,"admin_token"};
+
+				// policy_elements=[user(u1),assign('u1','ua1')]
+			break;
+		}
+		PolicyRequestDTO dto = new PolicyRequestDTO(op, args);
+		
+		// Consume policy server query interface service and get the server response
+		PolicyResponseDTO policyServerResponse = consumePU(orchestrationResult, dto);
+		
+		return policyServerResponse;
+	}
+
+	// Arrowhead orchestration function. Returns an arrowhead OrchestrationResultDTO
+    private OrchestrationResultDTO orchestratePU(final String serviceDefinition) {
+    	final ServiceQueryFormDTO serviceQueryForm = new ServiceQueryFormDTO.Builder(serviceDefinition)
+    			.interfaces(getInterface())
+    			.build();
+    	
+    	final Builder orchestrationFormBuilder = arrowheadService.getOrchestrationFormBuilder();
+    	final OrchestrationFormRequestDTO orchestrationFormRequest = orchestrationFormBuilder.requestedService(serviceQueryForm)
+    			.flag(Flag.MATCHMAKING, true)
+    			.flag(Flag.OVERRIDE_STORE, true)
+    			.build();
+    	
+    	final OrchestrationResponseDTO orchestrationResponse = arrowheadService.proceedOrchestration(orchestrationFormRequest);
+    	
+    	if (orchestrationResponse == null) {
+    		logger.info("No orchestration response received");
+    	} else if (orchestrationResponse.getResponse().isEmpty()) {
+    		logger.info("No provider found during the orchestration");
+    	} else {
+    		final OrchestrationResultDTO orchestrationResult = orchestrationResponse.getResponse().get(0);
+    		validateOrchestrationResult(orchestrationResult, serviceDefinition);
+    		return orchestrationResult;
+    	}
+    	throw new ArrowheadException("Unsuccessful orchestration: " + serviceDefinition);
+    }
+	
+	// Consume the defined arrowhead service 
+    private PolicyResponseDTO consumePU(final OrchestrationResultDTO orchestrationResult, PolicyRequestDTO requestDTO) {
+    	final String token = orchestrationResult.getAuthorizationTokens() == null ? null : orchestrationResult.getAuthorizationTokens().get(getInterface());
+		
+		
+    	// Consume the service and return the server response
+		return arrowheadService.consumeServiceHTTP(PolicyResponseDTO.class, HttpMethod.valueOf(orchestrationResult.getMetadata().get(HTTP_METHOD)),
+				orchestrationResult.getProvider().getAddress(), orchestrationResult.getProvider().getPort(), orchestrationResult.getServiceUri(),
+				getInterface(), token, requestDTO, new String[0]);
+    }
 
 	/* ----------------------- Assistant methods --------------------- */
 

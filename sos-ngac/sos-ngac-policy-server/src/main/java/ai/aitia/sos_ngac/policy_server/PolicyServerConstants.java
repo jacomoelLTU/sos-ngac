@@ -11,10 +11,12 @@ public class PolicyServerConstants {
 	public static final String QUERY_INTERFACE_URI = "/pqi";
 
 
-	// our thing 2023 , nor sure if this should be here 
-	public static final String QUERY_INTERFACE_SERVICE_UPDATE  = "policy-update";
-	// our update service ,  not sure if this should be here
+	// our thing 2023
+	public static final String POLICY_INTERFACE_SERVICE_UPDATE  = "policy-update";
+	public static final String QUERY_INTERFACE_SERVICE_UPDATE  = "policy-query-update";
+	// our update service
 	public static final String QUERY_UPDATE_URI = "/pqu";
+	public static final String POLICY_UPDATE_URI = "/pu";
 
 	public static final String NGAC_SERVER_QUERY_API = "/pqapi/";
 	public static final String NGAC_SERVER_ADMIN_API = "/paapi/";

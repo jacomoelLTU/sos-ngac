@@ -45,40 +45,19 @@ public class PolicyServerController {
 		return responseDTO;
 	}
 
-	// New service that updates the server upon adding of new stuff #2023
+	// New service that updates the server from the client policy control perspective #2023
 	@PostMapping(value = PolicyServerConstants.QUERY_UPDATE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pqu(@RequestBody final PolicyRequestDTO dto) throws Exception {
-
-		//logic kanske måste in här ELLER att vi skickar hit allt som lagts till precis baserat på queries så vi 
-		//ba kan assigna allt rätt av
-
-		//process builder 
-
-			// String hostName = "http://127.0.0.1:8001/paapi/getpol";
-
-			// ProcessBuilder pb = new ProcessBuilder("curl", "--G ", hostName, "--data-urlencode", "token=admin_token");
-
-			// Process process = pb.start();
-			// InputStream is = process.getInputStream();
-			// InputStreamReader isr = new InputStreamReader(is);
-			// BufferedReader br = new BufferedReader(isr);
-			// StringBuilder responseStrBuilder = new StringBuilder();
-
-			// String line = new String();
-
-			// while ((line = br.readLine()) != null) {
-			// 	System.out.println("read line from curl command: " + line);
-			// 	responseStrBuilder.append(line);
-			// }
-
-			// //pb ger namnet på policy i line stringen...
-
-
-
 		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, PolicyServerConstants.NGAC_SERVER_ADMIN_API);
-		System.out.println(responseDTO.getRespBody());
-		System.out.println("ResponsteDTO");
+		return responseDTO;
+	}
+
+	// New service that updates the server upon adding of new stuff #2023
+	@PostMapping(value = PolicyServerConstants.POLICY_UPDATE_URI)
+	@ResponseBody
+	public PolicyResponseDTO pu(@RequestBody final PolicyRequestDTO dto) throws Exception {
+		PolicyResponseDTO responseDTO = apiHandler.handleRequest(dto, PolicyServerConstants.NGAC_SERVER_ADMIN_API);
 		return responseDTO;
 	}
 }
