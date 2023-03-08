@@ -142,6 +142,7 @@ MySQL steps in order:
 5) Service_registry_interface_connection. Set up connections for the service.
 
 Here is an example, which actually is used to implement the latest policy update service:
+
 1)
 ```
 INSERT INTO service_definition(service_definition) VALUES ("policy-update");
