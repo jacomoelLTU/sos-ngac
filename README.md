@@ -42,6 +42,9 @@ The project has the following dependencies:
 
 # Setup guide
 
+## Simulated enviorment (VM-box) 
+A VM-box system is provided for getting a quick startup or as an option, if not desided to setup the system yourself. This will be within a folder in this repo called VMBOX. This so if chosen to work within a simulated enviorment there is an existing system ready to be imported on your own VM-box.  
+
 ## Launching the Arrowhead Core Systems
 
 For the Arrowhead documentation, go to the [core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring) repository.
