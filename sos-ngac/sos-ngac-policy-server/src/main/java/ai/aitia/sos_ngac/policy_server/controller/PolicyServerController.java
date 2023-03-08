@@ -45,7 +45,7 @@ public class PolicyServerController {
 		return responseDTO;
 	}
 
-	// New service that updates the server from the client policy control perspective #2023
+	// New service that updates the server from the client policy control perspective, not fully implemented #2023
 	@PostMapping(value = PolicyServerConstants.QUERY_UPDATE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pqu(@RequestBody final PolicyRequestDTO dto) throws Exception {
@@ -53,7 +53,7 @@ public class PolicyServerController {
 		return responseDTO;
 	}
 
-	// New service that updates the server upon adding of new stuff #2023
+	// New service that updates the server invoked from the resource consumer #2023
 	@PostMapping(value = PolicyServerConstants.POLICY_UPDATE_URI)
 	@ResponseBody
 	public PolicyResponseDTO pu(@RequestBody final PolicyRequestDTO dto) throws Exception {
