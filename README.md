@@ -127,4 +127,20 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
 8) Restart the resource system application
 9) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and send your queries!
 
+## Setting up a new service
+
+To set up a new service you have to go through some steps.
+First you can implement it in one of the controller files (PolicyServerController, ResourceSystemController) or you could create your own controller class. What you do here is you map a way to reach your wanted service, which is not yet existing.
+
+Actually adding the service is done in MySQL. You add and set up the correct connections there. This has to be done in order. 
+
+MySQL steps in order:
+1) Service_definition. You have to add a new service in the service_definition table to be able to register a new service in the service_registry.
+2) Service_registry. Here you register the service.
+3) Authorization_intra_cloud. Create access for the service.
+4) Authorization_intra_cloud_interface_connection. Set up connections for the service.
+5) Service_registry_interface_connection. Set up connections for the service.
+
+After the service is created and you have mapped a way to reach it, you have to send a request to use it.
+To send a request to the added service you need to first create an orchestration request, get the orchestration result and then send this result with a DTO of some sort, could be a ResourceRequestDTO or a PolicyRequestDTO. To understand this better you can look inside the ConsumerMain file. 
 
