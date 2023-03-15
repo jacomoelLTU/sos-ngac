@@ -166,8 +166,9 @@ public class ConsumerMain implements ApplicationRunner {
 	// Added the logic behind the choices the user will have, (can be expanded)
 	// 2023-jan-16
 	public void addSensor(Scanner scanner) throws IOException, InterruptedException, Exception {
-
-		OrchestrationResultDTO orchestrationResult = updateOrchestrate();
+		
+		// Line below is for the /requestupdate service which are commented on line 212
+		// OrchestrationResultDTO orchestrationResult = updateOrchestrate();
 
 		String manuF = "";
 
