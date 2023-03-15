@@ -137,11 +137,11 @@ Actually adding the service is done in MySQL. You add and set up the correct con
 MySQL steps in order:
 1) Service_definition. You have to add a new service in the service_definition table to be able to register a new service in the service_registry.
 2) Service_registry. Here you register the service. The service_id can be extracted from the service_definition table and the system_id is what system the service is requested from.
-3) Authorization_intra_cloud. Create access for the service. You have to add the correct consumer and provider id's according to your service. Interface_id is 1 or 2 which represents SECURE or INSECURE mode respectively.
+3) Authorization_intra_cloud. Create access for the service. You have to add the correct consumer and provider IDs according to your service. Interface_id is 1 or 2 which represents SECURE or INSECURE mode respectively.
 4) Authorization_intra_cloud_interface_connection. Set up connections for the service.
 5) Service_registry_interface_connection. Set up connections for the service.
 
-Here is an example, which actually is used to implement the latest policy update service:
+Here is an example, which actually is used to implement the latest policy update service, you can use this but you do have to change the IDs to match your IDs:
 
 1)
 ```
