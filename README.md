@@ -127,7 +127,7 @@ Click ``Execute`` and you should get a JSON response with the full body of the c
 8) Restart the resource system application
 9) You should now be able to run the consumer. Start by running the sensor, then instantiate a new consumer and send your queries!
 
-## Setting up a new service
+## Manually setting up a service
 
 To set up a new service you have to go through some steps.
 First you can implement it in one of the controller files (PolicyServerController, ResourceSystemController) or you could create your own controller class. What you do here is you map a way to reach your wanted service, which is not yet existing.
