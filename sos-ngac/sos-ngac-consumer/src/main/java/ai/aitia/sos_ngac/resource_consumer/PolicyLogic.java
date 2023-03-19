@@ -136,7 +136,7 @@
 }
 
 // Read Policyn och Ge en typ
-curl -s -G "http://127.0.0.1:8001/paapi/readpol" --data-urlencode "policy=2023ExP1" --data-urlencode "token=admin_token"
+//curl -s -G "http://127.0.0.1:8001/paapi/readpol" --data-urlencode "policy=2023ExP1" --data-urlencode "token=admin_token"
 // sen parse output
 // compare metadata
 // send location to type 
