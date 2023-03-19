@@ -1,6 +1,7 @@
 //Policy LOGIC (put it in consumer main) 
         /*  public void getMetadata(ResourceGetDTO dto) {
-			try {
+	// We thought in the begining that we had to do a Get DTO but we realized it was unnecessary
+			try { 
 				// Set the URL of the service registry to retrieve metadata from
 				String hostName = "http://localhost:8443/serviceregistry/mgmt/systems/" + dto.getSystemId();
 		
