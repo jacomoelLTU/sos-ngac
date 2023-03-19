@@ -1,1 +1,0 @@
-Import appliance in the vm-box program. This with the ova-file. Guides exists online for more information.
