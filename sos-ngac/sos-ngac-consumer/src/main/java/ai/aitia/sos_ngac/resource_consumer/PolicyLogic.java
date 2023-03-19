@@ -62,8 +62,6 @@
 
 
 
-		// Gör en 
-
         // Parse the assign, ascociate and connector commands
              
         // \n  object_attribute('TempSensor'),\n  object_attribute('Thermostat'),\n  policy_class(access),\n  connector('PM'),\n  assign('User1','Group1'),\n  assign('User2','Group1'),\n  assign('User3','Group2'),
