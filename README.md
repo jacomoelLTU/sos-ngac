@@ -17,7 +17,7 @@ The three repos compiled and run together is represented by the component diagra
 
 ![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
 
-
+The next diagram shows the datapaths for new services implemented by the group, highlighted in magenta coloured lollipops. See the report pdf for a more elaborated description.
 
 ![SoS NGAC UML Updated Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Updated Component Diagram")
 
@@ -30,8 +30,6 @@ Folow this link [link](https://github.com/esen96/sos-ngac#requirements) to find 
 Follow the setup guide found in this [repo](https://github.com/esen96/sos-ngac) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
 ## Setup guide alternative 2
-
-## Simulated environment (VM-box) 
 A VM-box system is provided for getting a quick startup. Download the OVA file from this repository found in VMBOX folder. Importing this you will run a copy of the virtual environment where the group finished.
 
 Follow the steps in this guide to import it into your virtualbox: [https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4](https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4)
@@ -41,7 +39,6 @@ Once the VM is up and running there are two scripts called **quickStart1.sh** an
 The scripts have a certain order within the **.sh** files, these are in decending order as the commands come. It is important to run these files in order; 1. **quickStart1.sh** 2. **quickStart2.sh**. Both startup scripts will open a set of tabs, enter requested passwords in each tab ordered **left** to **right**. Make sure all **quickStart1.sh** tabs run properly before running **quickStart2.sh**.
 
 **quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [here](https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh). The system setup is now complete and the example policy created for the demo is loaded onto the server,  see the guide in the following section on how to use the application.
-
 
 ## Application Demo Guide
 
