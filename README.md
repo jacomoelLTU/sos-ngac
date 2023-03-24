@@ -13,7 +13,7 @@ Starting of the group were handed a codebase consisting of the three repos below
 
 3) Arrowhead Framework 4.4.0.2 : [https://github.com/eclipse-arrowhead/core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring)
 
-The three repos compiled and run togheter is represented by the component diagram below, here users can interact with the policy server only through access queries to retrive data from object controlled by the policy.
+The three repos compiled and run together is represented by the component diagram below, here users can interact with the policy server only through access queries to retrieve data from object controlled by the policy.
 
 ![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
 
