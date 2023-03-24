@@ -1,7 +1,7 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-A student project group at **Dept. of Computer Science, Electrical and Space Engineering at Luleå University of Technology course D0020E** contributing to an open source project Arrowhead Policy Server with automatic data sharing policy assignment for new data sources which is an extensive cloud solution using NGAC to build access policies in large systems. Despite Arrowhead's already well developed platform there's no automation for initialising new objects to an already existing access policy. At this present stage manual changes to code are required to reach the desired result. There is a need to be met here, initialisation of new objects should not need code to be configured.
+A student project group at *Dept. of Computer Science, Electrical and Space Engineering at Luleå University of Technology course D0020E* contributing to an open source project Arrowhead Policy Server with automatic data sharing policy assignment for new data sources which is an extensive cloud solution using NGAC to build access policies in large systems. Despite Arrowhead's already well developed platform there's no automation for initialising new objects to an already existing access policy. At this present stage manual changes to code are required to reach the desired result. There is a need to be met here, initialisation of new objects should not need code to be configured.
 
 Starting of the group were handed a codebase consisting of the three repos below:
 
