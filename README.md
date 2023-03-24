@@ -24,11 +24,11 @@ The three repos compiled and run together is represented by the component diagra
 
 Folow this link [https://github.com/esen96/sos-ngac#requirements](link) to find all the required installations to run the system.
 
-# Setup guide alternative 1
+## Setup guide alternative 1
 
 Follow the setup guide found in this [https://github.com/esen96/sos-ngac](repo) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
-# Setup guide alternative 2
+## Setup guide alternative 2
 
 ## Simulated environment (VM-box) 
 A VM-box system is provided for getting a quick startup. Download the OVA file from this repository found in VMBOX folder. Importing this you will run a copy of the virtual environment where the group finished.
