@@ -22,11 +22,11 @@ The three repos compiled and run together is represented by the component diagra
 
 # Requirements
 
-Folow this link [https://github.com/esen96/sos-ngac#requirements](link) to find all the required installations to run the system.
+Folow this link [link](https://github.com/esen96/sos-ngac#requirements) to find all the required installations to run the system.
 
 ## Setup guide alternative 1
 
-Follow the setup guide found in this [https://github.com/esen96/sos-ngac](repo) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
+Follow the setup guide found in this [repo](https://github.com/esen96/sos-ngac) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
 ## Setup guide alternative 2
 
