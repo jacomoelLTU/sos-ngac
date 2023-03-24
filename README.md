@@ -23,7 +23,7 @@ The next diagram shows the datapaths for new services implemented by the group, 
 
 # Requirements
 
-Folow this link [link](https://github.com/esen96/sos-ngac#requirements) to find all the required installations to run the system.
+Folow this [link](https://github.com/esen96/sos-ngac#requirements) to find all the required installations to run the system.
 
 ## Setup guide alternative 1
 
@@ -38,22 +38,17 @@ Once the VM is up and running there are two scripts called **quickStart1.sh** an
 
 The scripts have a certain order within the **.sh** files, these are in decending order as the commands come. It is important to run these files in order; 1. **quickStart1.sh** 2. **quickStart2.sh**. Both startup scripts will open a set of tabs, enter requested passwords in each tab ordered **left** to **right**. Make sure all **quickStart1.sh** tabs run properly before running **quickStart2.sh**.
 
-**quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [here](https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh). The system setup is now complete and the example policy created for the demo is loaded onto the server,  see the guide in the following section on how to use the application.
+**quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [here](https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh). The system setup is now complete and the example policy created for the demo is loaded onto the server, see the guide in the following section on how to use the application.
 
 ## Application Demo Guide
 
+The following diagram represents the main use case when a client user wants to add an object to an existing policy, this particular policy reflects access control of two different types of temperature related sensors.
+
 ![2023 Example Policy](doc/PolicyExample.png?raw=true "2023 Example Policy")
 
-The diagram represents the main use case when a user wants to add an object to an existing policy, 
+The client user can add objects to the content of the policy server through the **resource-consumer** via the terminal application. For this purpose choose 'a' from the first prompted line '(s/c/a)', the remaining of the I/O stream is fairly self explanatory.
 
-If everything is up and running it should be possible to run the **resource-consumer**. We could then test if our policy have been loaded correctly by interacting with the terminal and in order: 
-
-1. Run as a consumer **C**. 
-2. Enter set username from chosen **.pl** file. 
-3. Choose **R** (easiest way of checking we've loaded the policy). 
-4. Conditional Request choice should be **no** (this is not all the way implemented yet). 
-
-This should give a response in the same terminal window that points towards whatever the policy is loaded correctly. 
+To try out an access query for the recently added object, rerun the **resource-consumer** and now choose option 'c' and provide input according to the current policy for a correct test. 
 
 ## Manually setting up a service
 
