@@ -5,17 +5,13 @@ A student project group at *Dept. of Computer Science, Electrical and Space Engi
 
 Starting of the group were handed a codebase consisting of the three repos below:
 
-1) A resource SoS with NGAC enforcement in Eclipse Arrowhead, Importing Policy Machine functionalities for NGAC enforcement in Arrowhead SoS.
+1) A resource SoS with NGAC enforcement in Eclipse Arrowhead, Importing Policy Machine functionalities for NGAC enforcement in Arrowhead SoS. : [https://github.com/esen96/sos-ngac](https://github.com/esen96/sos-ngac) 
 
-[https://github.com/esen96/sos-ngac](https://github.com/esen96/sos-ngac) 
 
-2) TOG's implementation of the NGAC Policy Machine with minor modifications from various students at Luleå University of Technology.
+2) TOG's implementation of the NGAC Policy Machine with minor modifications from various students at Luleå University of Technology. : [https://github.com/esen96/tog-ngac-crosscpp-LTU](https://github.com/esen96/tog-ngac-crosscpp-LTU)
 
-[https://github.com/esen96/tog-ngac-crosscpp-LTU](https://github.com/esen96/tog-ngac-crosscpp-LTU)
 
-3) Arrowhead Framework 4.4.0.2
-
-[https://github.com/eclipse-arrowhead/core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring)
+3) Arrowhead Framework 4.4.0.2 : [https://github.com/eclipse-arrowhead/core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring)
 
 
 
