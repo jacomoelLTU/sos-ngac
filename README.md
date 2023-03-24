@@ -1,9 +1,9 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-A student project group at *Dept. of Computer Science, Electrical and Space Engineering at Luleå University of Technology course D0020E* contributing to an open source project Arrowhead Policy Server with automatic data sharing policy assignment for new data sources which is an extensive cloud solution using NGAC to build access policies in large systems. Despite Arrowhead's already well developed platform in the given codebase there was no automation for initialising new objects to an already existing access policy, which the project aimed to develop.
+A student project group at *Dept. of Computer Science, Electrical and Space Engineering at Luleå University of Technology course D0020E* contributing to an open source project, Arrowhead Policy Server with automatic data sharing policy assignment for new data sources which is an extensive cloud solution using NGAC to build access policies in large systems. Despite Arrowhead's already well developed platform in the given codebase there was no automation for initialising new objects to an already existing access policy, which the project aimed to develop.
 
-Starting of the group were handed a codebase consisting of the three repos below:
+Starting off the group were handed a codebase consisting of the three repos below:
 
 1) A resource SoS with NGAC enforcement in Eclipse Arrowhead, Importing Policy Machine functionalities for NGAC enforcement in Arrowhead SoS. : [https://github.com/esen96/sos-ngac](https://github.com/esen96/sos-ngac) 
 
@@ -46,9 +46,9 @@ The following diagram represents the main use case when a client user wants to a
 
 ![2023 Example Policy](doc/PolicyExample.png?raw=true "2023 Example Policy")
 
-The client user can add objects to the content of the policy server through the **resource-consumer** via the terminal application. For this purpose choose 'a' from the first prompted line '(s/c/a)', the remaining of the I/O stream is fairly self explanatory.
+The client user can add objects to the content of the policy server through the **resource-consumer** via the terminal application. For this purpose choose ```a``` from the first prompted line ```(s/c/a)```, the remaining of the I/O stream is fairly self explanatory.
 
-To try out an access query for the recently added object, rerun the **resource-consumer** and now choose option 'c' and provide input according to the current policy for a correct test. 
+To try out an access query for the recently added object, rerun the **resource-consumer** and now choose option ```c``` and provide input according to the current policy for a correct test. 
 
 ## Manually setting up a service
 
