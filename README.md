@@ -1,9 +1,31 @@
 # Arrowhead Framework System of Systems NGAC Project (Java Spring-Boot)
 
 ## Description
-A resource SoS with NGAC enforcement in Eclipse Arrowhead. In the demo, a consumer sends requests to access (read/write) data in a time series database, and is given permission only if the corresponding policy is set in the Policy Machine.
+A student project group at **Dept. of Computer Science, Electrical and Space Engineering at Luleå University of Technology course D0020E** contributing to an open source project Arrowhead Policy Server with automatic data sharing policy assignment for new data sources which is an extensive cloud solution using NGAC to build access policies in large systems. Despite Arrowhead's already well developed platform there's no automation for initialising new objects to an already existing access policy. At this present stage manual changes to code are required to reach the desired result. There is a need to be met here, initialisation of new objects should not need code to be configured.
+
+Starting of the group were handed a codebase consisting of the three repos below:
+
+1) A resource SoS with NGAC enforcement in Eclipse Arrowhead, Importing Policy Machine functionalities for NGAC enforcement in Arrowhead SoS.
+
+[https://github.com/esen96/sos-ngac](https://github.com/esen96/sos-ngac) 
+
+2) TOG's implementation of the NGAC Policy Machine with minor modifications from various students at Luleå University of Technology.
+
+[https://github.com/esen96/tog-ngac-crosscpp-LTU](https://github.com/esen96/tog-ngac-crosscpp-LTU)
+
+3) Arrowhead Framework 4.4.0.2
+
+[https://github.com/eclipse-arrowhead/core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring)
+
+
 
 ![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
+
+- jacob fortsätter med intro, follow givin repos setup
+
+
+
+![SoS NGAC UML Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Component Diagram")
 
 
 # Setup guide
