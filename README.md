@@ -18,7 +18,7 @@ The three repos compiled and run together is represented by the component diagra
 ![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
 
 
-![SoS NGAC UML Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Updated Component Diagram")
+![SoS NGAC UML Updated Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Updated Component Diagram")
 
 # Requirements
 
@@ -28,18 +28,25 @@ Folow this link [https://github.com/esen96/sos-ngac#requirements](link) to find 
 
 Follow the setup guide found in this [https://github.com/esen96/sos-ngac](repo) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
-# Setup guide alternative 2 (hur kör man ifall man använder vår VM copy)
+# Setup guide alternative 2
 
 ## Simulated environment (VM-box) 
-A VM-box system is provided for getting a quick startup. Download the OVA file from this repository found in VMBOX folder.
+A VM-box system is provided for getting a quick startup. Download the OVA file from this repository found in VMBOX folder. Importing this you will run a copy of the virtual environment where the group finished.
 
 Follow the steps in this guide to import it into your virtualbox: [https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4](https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4)
 
-Once the VM is up and running there are two scripts called **quickStart1.sh** and **quickStart2.sh** these have been created to make life more easy for the one who wants to quickly get every piece of the system running. 
+Once the VM is up and running there are two scripts called **quickStart1.sh** and **quickStart2.sh** these scripts will automatically run the core systems and load the demo policy.
 
-The scripts have a certain order within the **.sh** files, these are in decending order as the commands come. There is also important to run these files in order; 1. **quickStart1.sh** 2. **quickStart2.sh**. There is also some importance to which tabs should be run and when. But a good rule of thumb would be to run them **left** to **right**. Also while running **quickStart1.sh** one should know that when the coresystem tab is running there should be some delay before starting **quickStart2.sh**, about 30 secconds should be enough. 
+The scripts have a certain order within the **.sh** files, these are in decending order as the commands come. It is important to run these files in order; 1. **quickStart1.sh** 2. **quickStart2.sh**. Both startup scripts will open a set of tabs, enter requested passwords in each tab ordered **left** to **right**. Make sure all **quickStart1.sh** tabs run properly before running **quickStart2.sh**.
 
-When everything is running theese could also be used to get a better understanding of which system depend on another. Note that within both of these files there is filepaths to each file; this is useful and important to know if one would like for another **.pl** to be used. The **.pl** file could be thought as the current policy that we load onto the **policy-server** when running **demo.sh** in **quickStart2.sh**. 
+**quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh](here). The system setup is now complete and the example policy created for the demo is loaded onto the server,  see the guide in the following section on how to use the application.
+
+
+# Application Demo Guide
+
+![2023 Example Policy](doc/PolicyExample.png?raw=true "2023 Example Policy")
+
+The diagram represents the main use case when a user wants to add an object to an existing policy, 
 
 If everything is up and running it should be possible to run the **resource-consumer**. We could then test if our policy have been loaded correctly by interacting with the terminal and in order: 
 
