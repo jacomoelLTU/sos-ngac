@@ -42,8 +42,8 @@ The project has the following dependencies:
 
 # Setup guide
 
-## Simulated enviorment (VM-box) 
-A VM-box system is provided for getting a quick startup or as an option, if not desided to setup the system yourself. This will be within a folder in a repo called VMBOX. This so if chosen to work within a simulated enviorment there is an existing system ready to be imported on your own VM-box.  
+## Simulated environment (VM-box) 
+A VM-box system is provided for getting a quick startup or as an option, if not desided to setup the system yourself. This will be within a folder in a repo called VMBOX. This so if chosen to work within a simulated environment there is an existing system ready to be imported on your own VM-box.  
 
 Make sure to make use of you device hardware or else errors might appear. 
 
