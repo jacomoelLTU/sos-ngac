@@ -13,9 +13,10 @@ Starting of the group were handed a codebase consisting of the three repos below
 
 3) Arrowhead Framework 4.4.0.2 : [https://github.com/eclipse-arrowhead/core-java-spring](https://github.com/eclipse-arrowhead/core-java-spring)
 
-The three repos compiled and run together is represented by the component diagram below, here users can interact with the policy server only through access queries to retrieve data from object controlled by the policy.
+The three repos compiled and run together is represented by the component diagram below, here users can interact with the policy server only through access queries to retrieve data from objects controlled by the policy.
 
 ![SoS NGAC UML Component Diagram](doc/Component1.png?raw=true "SoS NGAC UML Component Diagram")
+
 
 
 ![SoS NGAC UML Updated Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Updated Component Diagram")
@@ -39,10 +40,10 @@ Once the VM is up and running there are two scripts called **quickStart1.sh** an
 
 The scripts have a certain order within the **.sh** files, these are in decending order as the commands come. It is important to run these files in order; 1. **quickStart1.sh** 2. **quickStart2.sh**. Both startup scripts will open a set of tabs, enter requested passwords in each tab ordered **left** to **right**. Make sure all **quickStart1.sh** tabs run properly before running **quickStart2.sh**.
 
-**quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh](here). The system setup is now complete and the example policy created for the demo is loaded onto the server,  see the guide in the following section on how to use the application.
+**quickStart2.sh** will load the policy in the diagram below, the script that loads the policy can be found [here](https://github.com/jacomoelLTU/tog-ngac-crosscpp-LTU/blob/master/sos-ngac-demo/13-2023-ExPolicy-1.sh). The system setup is now complete and the example policy created for the demo is loaded onto the server,  see the guide in the following section on how to use the application.
 
 
-# Application Demo Guide
+## Application Demo Guide
 
 ![2023 Example Policy](doc/PolicyExample.png?raw=true "2023 Example Policy")
 
