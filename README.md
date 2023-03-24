@@ -28,12 +28,16 @@ Starting of the group were handed a codebase consisting of the three repos below
 ![SoS NGAC UML Component Diagram](doc/UpdatedComponentDiagram.png?raw=true "SoS NGAC UML Component Diagram")
 
 
-# Setup guide
+# Setup guide alternative 1
+
+ 
+
+# Setup guide alternative 2 (hur kör man ifall man använder vår VM copy)
 
 ## Simulated environment (VM-box) 
-A VM-box system is provided for getting a quick startup or as an option, if not desided to setup the system yourself. This will be within a folder in a repo called VMBOX. This so if chosen to work within a simulated environment there is an existing system ready to be imported on your own VM-box.  
+A VM-box system is provided for getting a quick startup or as an option, if not desided to setup the system yourself. This will be within a folder in a repo called VMBOX. This so if chosen to work within a simulated environment there is an existing system ready to be imported on your own VM-box. 
 
-
+- emil skriver mera om vad som händer när man kör quickstart 1 och 2, vilka system startas i vilken ordning kort om vad de gör, hur använder man resource consumer för att köra och testa vårat DEMO 
 
 ## Manually setting up a service
 
