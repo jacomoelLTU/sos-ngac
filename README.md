@@ -30,7 +30,7 @@ Folow this [link](https://github.com/esen96/sos-ngac#requirements) to find all t
 Follow the setup guide found in this [repo](https://github.com/esen96/sos-ngac) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
 ## Setup guide alternative 2
-A VM-box system is provided for getting a quick startup. Download the OVA file from this repository found in VMBOX folder. Importing this you will run a copy of the virtual environment where the group finished.
+A VM-box system is provided for getting a quick startup. Download the OVA file from this MEGA [link](https://mega.nz/folder/wS5ngDRY#PsuiCnkOwguQBoJImDKA_g) found in VM Folder AH Ubuntu 64 bit. Importing this you will run a copy of the virtual environment where the group finished.
 
 Follow the steps in this guide to import it into your virtualbox: [https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4](https://medium.com/riow/how-to-open-a-vmdk-file-in-virtualbox-e1f711deacc4)
 
