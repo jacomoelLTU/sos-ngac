@@ -29,6 +29,24 @@ Folow this [link](https://github.com/esen96/sos-ngac#requirements) to find all t
 
 Follow the setup guide found in this [repo](https://github.com/esen96/sos-ngac) if you wish manually set up the system. Although this was how the group first proceeded we provide some preferred alterations to this in the next section.
 
+Once everything is installed and set up correctly you can start the system. This should be done in the following order:
+
+1) MYSQL: type "mysql -u root -p" in a terminal
+
+2) INFLUX: type "influx" in a terminal
+
+3) NGAC-SERVER: navigate to the tog-ngac-crosscpp-LTU folder and start the ngac-server by typing "./ngac-server -j"
+
+4) CORESYSTEMS(orchestrator, authorization, service_registry): go to the core-java-spring.../scripts folder and type "./start_coresystems_local.sh" 
+
+5) POLICY-SERVER: navigate to the sos-ngac/sos-ngac/sos-ngac-policy-server/target folder and start the policy server by typing "java -jar sos-ngac-policy-server-4.4.0.2.jar"
+
+6) RESOURCE-SYSTEM: navigate to the sos-ngac/sos-ngac/sos-ngac-resource-system/target folder and start the resource system by typing "java -jar sos-ngac-resource-system-4.4.0.2.jar"
+
+7) POLICY-DEMO: navigate to the tog-ngac-crosscpp-LTU/sos-ngac-demo folder and load a policy for example by typing "./13-2023-ExPolicy-1.sh"
+
+8) RESOURCE-CONSUMER: navigate to the sos-ngac/sos-ngac/sos-ngac-consumer/target folder and start the resource consumer by typing "java -jar sos-ngac-consumer-4.4.0.2.jar" this is where one interacts with the system
+
 ## Setup guide alternative 2
 A VM-box system is provided for getting a quick startup. Download the OVA file from this MEGA [link](https://mega.nz/folder/wS5ngDRY#PsuiCnkOwguQBoJImDKA_g) found in VM Folder AH Ubuntu 64 bit, which contains our VM clone. Importing this to your virtual environment will run a copy of the virtual environment where the group finished.
 
